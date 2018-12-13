@@ -1,0 +1,50 @@
+/**index.wxss**/
+.search-icon{
+  display: inline;
+  vertical-align: middle; 
+}
+.search-input{
+  display: inline-block;
+  margin-left: 10rpx;
+  width: 500rpx;
+  font-size: 14px;
+  color: grey;
+}
+.slide-image{
+  width: 100%;
+  height: 100%
+}
+.swiper-wrapper{
+  height: 400rpx;
+}
+.title{
+  margin-top: 10rpx;
+  margin-bottom: 20rpx;
+}
+.new-movie-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-between
+}
+.new-movie{
+  display: inline-block
+}
+.new-movie-image{
+  width: 200rpx;
+  height: 300rpx;
+}
+.new-movie-title{
+  font-size: 14px;
+}
+.new-movie-introduction{
+  font-size: 12px;
+  display: inline-block;
+  width: 200rpx;
+  color: grey
+}
+.more{
+  position: absolute;
+  top: 5px;
+  right: 0px;
+  font-size: 14px;
+}
