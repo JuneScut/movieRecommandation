@@ -1,0 +1,9 @@
+<!--pages/movieList/index.wxml-->
+<view class="wrapper">
+ <block wx:for="{{movies}}" wx:key="index">
+  <view class="movie">
+    <image src="{{item.imgUrl}}" class="movie-image">{{item.imgUrl}}</image>
+    <view class="movie-title">{{item.title}}</view>
+  </view>
+</block>
+</view>

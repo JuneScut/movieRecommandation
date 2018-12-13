@@ -1,0 +1,39 @@
+{
+  "pages": [
+    "pages/firstPage/index",
+    "pages/home/index",
+    "pages/recommandation/recommandation",
+    "pages/logs/logs",
+    "pages/mine/mine",
+    "pages/movieList/index",
+    "pages/detail/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "电影推荐",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home-selected.png"
+      },
+      {
+        "pagePath": "pages/recommandation/recommandation",
+        "text": "推荐",
+        "iconPath": "images/recommandation.png",
+        "selectedIconPath": "images/recommandation-selected.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "images/mine.png",
+        "selectedIconPath": "images/mine-selected.png"
+      }
+    ]
+  }
+}

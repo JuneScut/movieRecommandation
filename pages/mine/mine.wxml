@@ -1,0 +1,38 @@
+<!--pages/mine/mine.wxml-->
+<view class="container">
+  <block wx:if="{{showGetInfoButton}}">
+    <view class="no-info">
+      <text>{{showGetInfoButton}}</text>
+      <text style='margin-bottom: 20px; font-size: 14px'>暂无信息</text>
+      <button open-type='getUserInfo' lang="zh_CN" bindgetuserinfo="onGotUserInfo" 
+      type='primary'>获取用户信息</button>
+    </view>
+  </block>
+  <block wx:else>
+    <view>
+      <image src="{{userInfo.avatarUrl}}" class="avatar"></image>
+      <text class="user-name">{{userInfo.nickName}}</text>
+    </view>
+    <view class="tabbar">
+      <view class="item">
+        <view>0</view>
+        <view class="item-title">关注</view>
+      </view>
+       <view class="item">
+        <view>0</view>
+        <view class="item-title">被关注</view>
+      </view>
+       <view class="item">
+        <view>0</view>
+        <view class="item-title">观影生涯</view>
+      </view>
+    </view>
+    <view class="tab">
+      <view data-type="0" class="tab-item {{currentType==0? 'on': ''}}" bindtap="changeType"><text>评论</text></view>
+      <view  data-type="1" class="tab-item {{currentType==1? 'on': ''}}" bindtap="changeType"><text>收藏</text></view>
+    </view>
+    <view class="info">
+      <image src="/images/empty.jpg" class="info-image"></image>
+    </view>
+  </block>
+</view>

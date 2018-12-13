@@ -1,0 +1,16 @@
+<!--pages/firstPage/index.wxml-->
+<view class="container">
+  <view class="title">请选择你的标签</view>
+  <view class="tag-wrapepr">
+    <block wx:for="{{tags}}" wx:key="index">
+    <view data-id="{{index}}" class="{{tagStatus[index]===true?'tag-item-selected':'tag-item'}}" bindtap="chooseTag">{{item}}</view>
+  </block>
+  </view>
+  <view class='next-step'>
+   <navigator
+    url="../home/index"
+    open-type="reLaunch"
+    hover-class="navigator-hover">下一步</navigator>
+  </view>
+</view>
+

@@ -1,0 +1,19 @@
+/* pages/movieList/index.wxss */
+.wrapper{
+  padding-right: 35rpx;
+  padding-left: 35rpx;
+}
+.movie{
+  display: inline-block;
+  margin-right: 20rpx;
+  margin-left: 20rpx;
+  margin-bottom: 10px;
+}
+.movie-image{
+  width: 300rpx;
+  height: 450rpx;
+}
+.movie-title{
+  text-align: center;
+  font-size: 14px;
+}
