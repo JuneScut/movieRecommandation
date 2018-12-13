@@ -7,6 +7,7 @@ import com.green.movie_demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:9527", maxAge = 3600)
@@ -35,9 +36,9 @@ public class UserController
     @PostMapping(value = "/{user_id}/collections")
     //public Result addCollection(@PathVariable("user_id") int user_id, @RequestBody int movie_id)
     //public Result addCollection(@PathVariable("user_id") int user_id, @RequestBody Integer movie_id)
-    public Result addCollection(@PathVariable("user_id") int user_id, @RequestBody Map<String, Object>map)
+    public Result addCollection(@PathVariable("user_id") int user_id, @RequestBody Map<String, Object>requestMap)
     {
-        int movie_id = (Integer)map.get("movie_id");
+        int movie_id = (Integer)requestMap.get("movie_id");
         return userMovieService.addCollection(user_id, movie_id);
     }
     
@@ -53,19 +54,23 @@ public class UserController
         return userMovieService.getCollections(user_id);
     }
     
-//    @GetMapping(value = "/collection")
-//    public Result checkCollected(@RequestParam(value = "username") String username, @RequestParam(value = "title") String title)
-//    {
-//        Result responseMsg;
-//        if (movieService.checkMovieCollected(username, title))
-//        {
-//            responseMsg = Result.OK();
-//        } else
-//        {
-//            responseMsg = Result.NotFound();
-//        }
-//        return responseMsg;
-//    }
+    @GetMapping(value = "/{user_id}/collections")
+    public Result checkCollectedMovie(@PathVariable int user_id, @RequestParam("movie_id") int movie_id)
+    {
+        return userMovieService.checkCollectedMovie(user_id, movie_id);
+    }
+    
+    @PostMapping("/{user_id}/favor-categories/")
+    public Object addFavoriteCategories(@PathVariable int user_id, @RequestBody List<Integer> favor_category_ids)
+    {
+        return userMovieService.addFavoriteCategories(user_id, favor_category_ids);
+    }
+    
+    @GetMapping("/{user_id}/favor-categories")
+    public Object getFavoriteCategories(@PathVariable int user_id)
+    {
+        return userMovieService.getFavoriteCategories(user_id);
+    }
     
     //    @RequestMapping(value = "/find", method = RequestMethod.GET)
     //    public User findByName(@RequestParam(value = "username") String username)
