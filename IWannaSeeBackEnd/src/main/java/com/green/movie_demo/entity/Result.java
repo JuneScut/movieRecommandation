@@ -1,6 +1,8 @@
 package com.green.movie_demo.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Result
 {
     private int status;
@@ -52,6 +54,7 @@ public class Result
     
     
     // 可以加个注解，不作为JSON格式化
+    @JsonIgnore
     @Override
     public String toString()
     {

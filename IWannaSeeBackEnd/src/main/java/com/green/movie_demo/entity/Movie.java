@@ -1,14 +1,14 @@
 package com.green.movie_demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author: fakeProgrammer
- * @createdDate: 2018/10/5
- * @description:
+ * @create: 2018/10/5
+ * @desc:
  */
 
 @Repository
@@ -192,6 +192,7 @@ public class Movie
         this.short_intro = short_intro;
     }
     
+    @JsonIgnore
     public Map<String, Object> getInfo()
     {
         Map<String, Object>info = new HashMap<>();
