@@ -19,30 +19,31 @@ public class MovieController
     }
     
     @GetMapping(value = "/{id}")
-    public Object one(@PathVariable("id") int id)
+    public Object getAMovie(@PathVariable("id") int id)
     {
         return movieService.getAMovie(id);
     }
     
     @GetMapping(value = "/count")
-    public Object moviesCnt()
+    public Object getMoviesCnt()
     {
         return movieService.getMoviesCnt();
     }
     
-    @GetMapping(value = "{movie_id}/short-comments")
-    public Object shortComments(@PathVariable("movie_id") int movie_id)
+    @GetMapping(value = "/{movie_id}/short-comments")
+    public Object getShortComments(@PathVariable("movie_id") int movie_id)
     {
         return movieService.getShortComments(movie_id);
     }
     
     // 所有电影类别，一个类别下的电影数目越多，排序越靠前
     @GetMapping(value = "/categories")
-    public Object categories()
+    public Object getAllCategories()
     {
         return movieService.getAllCategories();
     }
     
+    // TODO: 对page, per_page等参数的检查
     // 该类别下K部的电影
     // orderByRank:
     //  true 获取排名靠前的K部电影
@@ -54,7 +55,7 @@ public class MovieController
     }
     
     // 该类别下随机K部的电影
-//    @GetMapping("/categories/{category_id}/rnd")
+//    @GetMapping("/getAllCategories/{category_id}/rnd")
 //    public Object getRndKMoviesFromCategory(@PathVariable("category_id") int category_id, @RequestParam("K") int K)
 //    {
 //        return movieService.findRndKMoviesUnderCategory(category_id, K);
