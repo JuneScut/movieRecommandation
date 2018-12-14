@@ -1,0 +1,25 @@
+/* pages/recommandation/recommandation.wxss */
+.recom-container{
+  background: black;
+  min-height: 1334rpx;
+}
+.slide-image{
+  width: 100%;
+  height: 100%
+}
+.swiper-wrapper{
+  height: 400rpx;
+}
+.title{
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: yellow
+}
+.content{
+ 
+}
+.recom-movie-image{
+  width: 100%;
+  height: 400rpx;
+}
