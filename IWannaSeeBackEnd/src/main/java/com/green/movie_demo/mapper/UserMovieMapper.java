@@ -2,6 +2,7 @@ package com.green.movie_demo.mapper;
 
 import com.green.movie_demo.entity.Category;
 import com.green.movie_demo.entity.Movie;
+import com.green.movie_demo.util.SqlUtil;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
@@ -18,13 +19,23 @@ public interface UserMovieMapper
     @Delete("delete from `collection` where `user_id` = #{user_id} and `movie_id` = #{movie_id}")
     int deleteFromCollection(@Param("user_id") int user_id, @Param("movie_id") int movie_id);
     
+    @Select("select `movie_id` " +
+            "from `collection` " +
+            "where `user_id` = #{user_id} ")
+    List<Integer> getCollections(@Param("user_id") int user_id);
+    
+    @Select("select count(*) " +
+            "from `collection` " +
+            "where `user_id` = #{user_id} ")
+    Integer findTotal_Collections(@Param("user_id") int user_id);
+    
     //    @Select("select * from `movie` where `id` in (select `movie_id` from `collection` where `user_id` = #{user_id})")
-    @Select("select R.* " +
-            "from `movie` as R " +
+    @Select("select M.* " +
+            "from `movie` as M " +
             "inner join " +
-            "(select `movie_id` from `collection` where `user_id` = #{user_id}) as S " +
-            "on R.id = S.movie_id")
-    List<Movie> getCollections(@Param("user_id") int user_id);
+            "(select `movie_id` from `collection` where `user_id` = #{user_id}) as CM " +
+            "on M.id = CM.movie_id " + SqlUtil.LIMIT_OFFSET)
+    List<Movie> getCollectedMovies(int user_id, int offset,@Param("limit") int per_page);
     
     @Select("select count(*) " +
             "from `collection` " +
@@ -39,12 +50,12 @@ public interface UserMovieMapper
             "where `user_id` = #{user_id} " +
             ") " +
             "as FC on C.id = FC.category_id ")
-    List<Category> getFavoriteCategories(int user_id);
+    List<Category> getFavorCategories(int user_id);
     
-    @Select("select id " +
+    @Select("select `category_id` " +
             "from `favor_category` " +
             "where `user_id` = #{user_id} ")
-    List<Integer> getFavoriteCategoryIds(int user_id);
+    List<Integer> getFavorCategoryIds(int user_id);
     
     @Insert("<script> " +
             "insert into `favor_category` (`user_id`, `category_id`) values " +
@@ -52,8 +63,12 @@ public interface UserMovieMapper
             "(#{user_id}, #{category_id})" +
             "</foreach> " +
             "</script> ")
-    Integer insertFavoriteCategories(Map<String, Object>paramMap);
-    //Integer insertFavoriteCategories(int user_id, List<Integer>categoryIds);
+    Integer insertFavorCategories(Map<String, Object>paramMap);
+    //Integer insertFavorCategories(int user_id, List<Integer>categoryIds);
+    
+    @Delete("delete from `favor_category` " +
+            "where `user_id` = #{user_id} and `category_id` = #{category_id} ")
+    Integer deleteFavorCategory(int user_id, int category_id);
     
     //    @Select("select count(*) from `collection` where `user_id` = #{user_id} and `movie_id` = #{movie_id};")
     //    int getCollectionCnt(@Param("user_id")int user_id, @Param("movie_id") int movie_id);

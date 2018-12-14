@@ -6,4 +6,6 @@ public class SqlUtil
     {
         return (page - 1) * per_page;
     }
+    
+    public static final String LIMIT_OFFSET = " limit #{limit} offset #{offset} ";
 }

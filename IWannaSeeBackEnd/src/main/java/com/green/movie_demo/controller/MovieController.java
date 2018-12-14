@@ -12,6 +12,7 @@ public class MovieController
     @Autowired
     private MovieService movieService;
     
+    // 获取电影简略信息
     @GetMapping(value = "/info")
     public Object getMoviesInfo(@RequestParam(value = "page", defaultValue = "1") int page,
                                 @RequestParam(value = "per_page", defaultValue = "20") int per_page)
@@ -25,12 +26,14 @@ public class MovieController
         return movieService.getAMovie(id);
     }
     
+    // 数据库中所有电影数量
     @GetMapping(value = "/count")
     public Object getMoviesCnt()
     {
         return movieService.getMoviesCnt();
     }
     
+    // 一部电影的豆瓣短评
     @GetMapping(value = "/{movie_id}/short-comments")
     public Object getShortComments(@PathVariable("movie_id") int movie_id)
     {
@@ -57,6 +60,7 @@ public class MovieController
         return movieService.findKMoviesUnderCategory(category_id, K, orderByRank);
     }
     
+    // 该类别下的电影
     @GetMapping("/categories/{category_id}/movies")
     public Object getMoviesUnderCategory(@PathVariable("category_id") int category_id,
                                          @RequestParam(value = "page", defaultValue = "1") int page,
