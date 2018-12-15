@@ -17,7 +17,10 @@
     <view class="title">更多精彩推荐</view>
     <block wx:for="{{recomMovies}}" wx:key="index">
     <view class="recom-movie">
-      <image src="{{item}}" class="recom-movie-image"></image>
+      <image src="{{item.pic_url}}" class="recom-movie-image"></image>
+      <view class="title-mask">
+        <text class="title">{{item.title}}</text>
+      </view>
     </view>
   </block>
   </view>

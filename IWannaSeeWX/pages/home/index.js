@@ -4,14 +4,15 @@ const app = getApp()
 
 Page({
   data: {
+    categoryMovies: [],
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    imgUrls: [
-      '/images/duye.jpg',
-      '/images/longmao.jpg',
-      '/images/haiwang.jpg'
+    swipers: [
+      {id: 2, url: '/images/duye.jpg'},
+      {id: 3, url: '/images/longmao.jpg'},
+      {id: 4, url: '/images/haiwang.jpg'}
     ],
     indicatorDots: true,
     autoplay: true,
@@ -38,32 +39,8 @@ Page({
     })
   },
   onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
+    this.getAllCategories()
+    this.getNewMovies()
   },
   getUserInfo: function(e) {
     console.log(e)
@@ -76,6 +53,59 @@ Page({
   navigateToMore(){
     wx.navigateTo({
       url: '/pages/movieList/index'
+    })
+  },
+  jump2Detail(e){
+    console.log(e.currentTarget.dataset.id)
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/detail/index?id=' + id,
+    })
+  },
+  // 获取所有类别
+  getAllCategories(){ 
+    let self = this;
+    wx.request({
+      url: 'http://120.79.178.50:8080/movies/categories',
+      header: {
+        'content-type': 'application/json'
+      },
+      success(res) {
+        self.setData({
+          categoryMovies: []
+        })
+        for(let item of res.data.data.list){
+          let temp = {}
+          temp.title = item.title
+          wx.request({
+            url: 'http://120.79.178.50:8080/movies/categories/'+item.id+'/some-movies?K=3&orderByRank=true',
+            success(res){
+              temp.movies = res.data.data.list
+              let catogryList = self.data.categoryMovies
+              catogryList.push(temp)
+              self.setData({
+                categoryMovies: catogryList
+              })
+            }
+          })
+        }
+      }
+    })
+  },
+  // 这周影院有啥看
+  getNewMovies(){
+    let self = this;
+    wx.request({
+      url: 'https://www.easy-mock.com/mock/5c14fc797aeb86217625d848/projectManage/getNewHotMovie#!method=get',
+      header: {
+        'content-type': 'application/json'
+      },
+      success(res) {
+        console.log(res.data.data.list)
+        self.setData({
+          newMovies: res.data.data.list
+        })
+      }
     })
   }
 })

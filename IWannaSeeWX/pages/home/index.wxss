@@ -35,16 +35,24 @@
 }
 .new-movie-title{
   font-size: 14px;
+  display: inline-block;
+  width: 200rpx;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
 }
 .new-movie-introduction{
   font-size: 12px;
   display: inline-block;
   width: 200rpx;
-  color: grey
+  color: grey;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
 }
 .more{
   position: absolute;
   top: 5px;
-  right: 0px;
+  right: 10px;
   font-size: 14px;
 }

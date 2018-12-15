@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -13,7 +13,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.3.0",
 	"appid": "wx0674242876242421",
-	"projectname": "movie",
+	"projectname": "moviesWithBE",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},

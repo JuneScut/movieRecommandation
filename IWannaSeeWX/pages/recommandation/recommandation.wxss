@@ -1,6 +1,6 @@
 /* pages/recommandation/recommandation.wxss */
 .recom-container{
-  background: black;
+  background: white;
   min-height: 1334rpx;
 }
 .slide-image{
@@ -14,12 +14,15 @@
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
-  color: yellow
+  color: black
 }
 .content{
  
 }
+.recom-movie{
+  border-bottom: 1rpx solid gray
+}
 .recom-movie-image{
   width: 100%;
-  height: 400rpx;
+  height: 600rpx;
 }

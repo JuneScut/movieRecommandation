@@ -6,9 +6,9 @@
   </view>
   <swiper indicator-dots="{{indicatorDots}}"
     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class="swiper-wrapper">
-    <block wx:for="{{imgUrls}}" wx:key="index">
+    <block wx:for="{{swipers}}" wx:key="index">
       <swiper-item>
-        <image src="{{item}}" class="slide-image"/>
+        <image src="{{item.url}}" class="slide-image" data-id="{{item.id}}" bindtap="jump2Detail"/>
       </swiper-item>
     </block>
   </swiper>
@@ -18,40 +18,27 @@
     <view class="new-movie-wrapper">
     <block wx:for="{{newMovies}}" wx:key="index">
       <view class="new-movie">
-        <image src="{{item.imgUrl}}" class="new-movie-image">{{item.imgUrl}}</image>
+        <image src="{{item.pic_url}}" class="new-movie-image"></image>
         <view class="new-movie-title">{{item.title}}</view>
-        <view class='new-movie-introduction'>{{item.introduction}}</view>
+        <view class='new-movie-introduction'>{{item.short_intro}}</view>
       </view>
     </block>
     </view>
   </view>
 
-    <view style='position: relative'>
-    <view class="title">科幻</view>
+
+   <view style='position: relative' wx:for="{{categoryMovies}}" wx:key="index">
+    <view class="title">{{item.title}}</view>
     <text class="more" bindtap='navigateToMore'>更多</text>
     <view class="new-movie-wrapper">
-    <block wx:for="{{newMovies}}" wx:key="index">
-      <view class="new-movie">
-        <image src="{{item.imgUrl}}" class="new-movie-image">{{item.imgUrl}}</image>
-        <view class="new-movie-title">{{item.title}}</view>
-        <view class='new-movie-introduction'>{{item.introduction}}</view>
+    <block wx:for="{{item.movies}}" wx:for-item='movieItem' wx:key="index">
+      <view class="new-movie" data-id="{{movieItem.id}}" bindtap='jump2Detail'>
+        <image src="{{movieItem.pic_url}}" class="new-movie-image"></image>
+        <view class="new-movie-title">{{movieItem.title}}</view>
+        <view class='new-movie-introduction'>{{movieItem.directors}}</view>
       </view>
     </block>
     </view>
   </view>
 
-    <view style='position: relative'>
-    <view class="title">悬疑</view>
-    <text class="more" bindtap='navigateToMore'>更多</text>
-    <view class="new-movie-wrapper">
-    <block wx:for="{{newMovies}}" wx:key="index">
-      <view class="new-movie">
-        <image src="{{item.imgUrl}}" class="new-movie-image">{{item.imgUrl}}</image>
-        <view class="new-movie-title">{{item.title}}</view>
-        <view class='new-movie-introduction'>{{item.introduction}}</view>
-      </view>
-    </block>
-    </view>
-  </view>
- 
 </view>
