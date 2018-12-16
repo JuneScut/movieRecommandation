@@ -29,7 +29,7 @@
 
    <view style='position: relative' wx:for="{{categoryMovies}}" wx:key="index">
     <view class="title">{{item.title}}</view>
-    <text class="more" bindtap='navigateToMore'>更多</text>
+    <text class="more" data-category-id="{{item.id}}"  data-category-title="{{item.title}}" bindtap='navigateToMore'>更多</text>
     <view class="new-movie-wrapper">
     <block wx:for="{{item.movies}}" wx:for-item='movieItem' wx:key="index">
       <view class="new-movie" data-id="{{movieItem.id}}" bindtap='jump2Detail'>

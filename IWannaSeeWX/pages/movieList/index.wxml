@@ -1,8 +1,9 @@
 <!--pages/movieList/index.wxml-->
 <view class="wrapper">
+ <view style="text-align:center;margin-bottom: 15px;">{{title}}</view>
  <block wx:for="{{movies}}" wx:key="index">
-  <view class="movie">
-    <image src="{{item.imgUrl}}" class="movie-image">{{item.imgUrl}}</image>
+  <view class="movie" data-id="{{item.id}}" bindtap='junp2detail'>
+    <image src="{{item.pic_url}}" class="movie-image"></image>
     <view class="movie-title">{{item.title}}</view>
   </view>
 </block>

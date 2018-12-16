@@ -121,19 +121,18 @@ Page({
   },
   sendTags(){
     let self = this;
-    // wx.request({
-    //   url: 'http://120.79.178.50:8080/movies/categories', // 仅为示例，并非真实的接口地址
-    //   header: {
-    //     'content-type': 'application/json' // 默认值
-    //   },
-    //   success(res) {
-    //     console.log(res.data.data.list)
-    //     //存储非首次登录的状态
-    //   }
-    // })
-    wx.setStorage({
-      key: 'noFirstTime',
-      data: true
+    wx.request({
+      url: 'http://120.79.178.50:8080/users/4/favor-categories', 
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success(res) {
+        console.log(res)
+        wx.setStorage({
+          key: 'noFirstTime',
+          data: true
+        })
+      }
     })
   }
     

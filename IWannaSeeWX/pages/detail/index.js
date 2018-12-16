@@ -45,16 +45,15 @@ Page({
     this.setData({
       id: query.id
     })
-    console.log(this.data.id)
     var self = this;
     // 设置页面高度，避免底部出现白色区域。
-    wx.getSystemInfo({
-      success: function (info) {
-        self.setData({
-          'screen.minHeight': info.windowHeight + 'px'
-        });
-      }
-    })
+    // wx.getSystemInfo({
+    //   success: function (info) {
+    //     self.setData({
+    //       'screen.minHeight': info.windowHeight + 'px'
+    //     });
+    //   }
+    // })
     // 请求电影数据
     wx.request({
       url: 'http://120.79.178.50:8080/movies/'+query.id, 
@@ -62,7 +61,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success(res) {
-        console.log(res.data.data)
         self.setData({
           detail: res.data.data
         })
@@ -75,7 +73,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success(res) {
-        console.log(res.data.data)
         self.setData({
           assess: res.data.data
         })

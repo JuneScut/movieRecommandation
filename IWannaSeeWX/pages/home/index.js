@@ -50,9 +50,11 @@ Page({
       hasUserInfo: true
     })
   },
-  navigateToMore(){
+  navigateToMore(event){
+    let id = event.currentTarget.dataset.categoryId
+    let title = event.currentTarget.dataset.categoryTitle
     wx.navigateTo({
-      url: '/pages/movieList/index'
+      url: '/pages/movieList/index?id=' + id + '&title=' + title
     })
   },
   jump2Detail(e){
@@ -77,6 +79,7 @@ Page({
         for(let item of res.data.data.list){
           let temp = {}
           temp.title = item.title
+          temp.id = item.id
           wx.request({
             url: 'http://120.79.178.50:8080/movies/categories/'+item.id+'/some-movies?K=3&orderByRank=true',
             success(res){
@@ -101,7 +104,6 @@ Page({
         'content-type': 'application/json'
       },
       success(res) {
-        console.log(res.data.data.list)
         self.setData({
           newMovies: res.data.data.list
         })
