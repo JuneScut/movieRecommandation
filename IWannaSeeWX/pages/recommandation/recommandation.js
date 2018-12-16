@@ -17,7 +17,7 @@ Page({
     recomMovies: [
       {id: 1, title: '这个杀手不太冷', url: '/images/shashou.jpg'},
       {id: 2, titel: '龙猫', url: '/images/longmao.jpg'},
-      '/images/drawning.jpg'
+      {id: 3, title:'日落之上', url: '/images/drawning.jpg'}
     ]
   },
 
@@ -34,7 +34,7 @@ Page({
       success(res) {
         // console.log(res.data)
         self.setData({
-          recomMovies: res.data.data.data
+          recomMovies: res.data.data.list
         })
       }
     })

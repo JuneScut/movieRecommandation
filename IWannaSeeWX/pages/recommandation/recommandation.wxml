@@ -13,15 +13,15 @@
       </swiper-item>
     </block>
   </swiper>
+  <view class="recom-title">更多精彩推荐</view>
   <view class="content">
-    <view class="title">更多精彩推荐</view>
     <block wx:for="{{recomMovies}}" wx:key="index">
-    <view class="recom-movie">
-      <image src="{{item.pic_url}}" class="recom-movie-image"></image>
-      <view class="title-mask">
-        <text class="title">{{item.title}}</text>
+      <view class="recom-movie">
+        <image src="{{item.pic_url}}" class="recom-movie-image"></image>
+        <view class="title-mask">
+          <view class="title">{{item.title}}</view>
+        </view>
       </view>
-    </view>
   </block>
   </view>
 </view>
