@@ -1,6 +1,6 @@
 
-export const baseURL = 'http://localhost:8080'; // 本地测试
-// export const baseURL = 'http://120.79.178.50:8080'; // 阿里云服务器
+// export const baseURL = 'http://localhost:8080'; // 本地测试
+ export const baseURL = 'http://120.79.178.50:8080'; // 阿里云服务器
 export const GET = 'GET';
 export const POST = 'POST';
 export const DELETE = 'DELETE';
