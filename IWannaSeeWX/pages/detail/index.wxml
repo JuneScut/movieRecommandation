@@ -1,2 +1,37 @@
 <!--pages/detail/index.wxml-->
-<text>pages/detail/index.wxml</text>
+<scroll-view style="min-height : {{screen.minHeight}};background-color: #2f2f2f;">
+  <view class="banner">
+    <view class="poster">
+      <image mode="aspectFit" src="{{detail.pic_url}}"></image>
+    </view>
+    <view class="info">
+      <view class="title">{{detail.title}}</view>
+      <view class="subinfo">
+        <view>类型：{{detail.type}}</view>
+        <view>导演：{{detail.diretors}}</view>
+        <view>主演：{{detail.stars}}</view>
+        <view>制片国家：{{detail.country}}</view>
+        <view>片长：{{detail.running_time}}</view>
+        <view>上映时间：{{detail.release_date}}</view>
+        <view class="score">{{detail.douban_score}}
+          <view>分</view>
+          <view>{{detail.douban_votes}}人评分</view>
+        </view>
+      </view>
+    </view>
+    <image class="background" mode="aspectFill" src="{{detail.pic_url}}"></image>
+  </view>
+  <view class="summary">
+    <view class="title">电影简介：</view>
+    {{detail.short_intro}}
+  </view>
+
+  <view class="assess">
+    <view class="title">评价:</view>
+    <view wx:for="{{assess}}" wx:for-index="myIndex" wx:for-item="myItem" wx:key="index">
+      <!-- <view class="username">{{myItem}}</view> -->
+      <view class="content">{{myItem}}</view>
+    </view>
+  </view>
+
+</scroll-view>

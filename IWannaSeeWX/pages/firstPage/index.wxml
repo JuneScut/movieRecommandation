@@ -3,10 +3,10 @@
   <view class="title">请选择你的标签</view>
   <view class="tag-wrapepr">
     <block wx:for="{{tags}}" wx:key="index">
-    <view data-id="{{index}}" class="{{tagStatus[index]===true?'tag-item-selected':'tag-item'}}" bindtap="chooseTag">{{item}}</view>
+    <view data-id="{{index}}" class="{{tagStatus[index]===true?'tag-item-selected':'tag-item'}}" bindtap="chooseTag">{{item.title}}</view>
   </block>
   </view>
-  <view class='next-step'>
+  <view class='next-step' bindtap="sendTags">
    <navigator
     url="../home/index"
     open-type="reLaunch"

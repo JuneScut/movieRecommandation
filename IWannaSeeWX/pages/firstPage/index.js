@@ -5,28 +5,43 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tags: ["动漫","文艺","超级英雄","科幻","悬疑","喜剧"],
-    tagStatus: []
+    tags: [{
+      id: 11, 
+      title: "冒险"
+    }],
+    tagStatus: [],
+    choosedTags: []
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let temp = []
-    let len = this.data.tags.length;
-    for(let i=0;i<len;i++)
-      temp[i] = false;
-    this.setData({
-      tagStatus: temp
-    })
+    try {
+      const res = wx.getStorageInfoSync()
+      console.log(res.keys)
+      if (res.keys.indexOf('noFirstTime') !== -1){
+        // 不是第一次打开
+        wx.reLaunch({
+          url: '/pages/home/index'
+        })
+      }
+    } catch (e) {
+      // Do something when catch error
+    }
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    this.getTags()
+    let temp = []
+    let len = this.data.tags.length;
+    for (let i = 0; i < len; i++)
+      temp[i] = false;
+    this.setData({
+      tagStatus: temp
+    })
   },
 
   /**
@@ -77,5 +92,49 @@ Page({
     this.setData({
       tagStatus: temp
     })
+    let temp2 = this.data.choosedTags;
+    if (temp[id]){
+      temp2.push(this.data.tags[id].id)
+    } else {
+      let index = temp2.indexOf(id)
+      temp2.splice(index, 1)
+    }
+    this.setData({
+      choosedTags: temp2
+    })
+    console.log(this.data.choosedTags)
+  },
+  getTags(){
+    let self = this;
+    wx.request({
+      url: 'http://120.79.178.50:8080/movies/categories', 
+      header: {
+        'content-type': 'application/json' 
+      },
+      success(res) {
+        // console.log(res.data.data.list)
+        self.setData({
+          tags: res.data.data.list
+        })
+      }
+    })
+  },
+  sendTags(){
+    let self = this;
+    // wx.request({
+    //   url: 'http://120.79.178.50:8080/movies/categories', // 仅为示例，并非真实的接口地址
+    //   header: {
+    //     'content-type': 'application/json' // 默认值
+    //   },
+    //   success(res) {
+    //     console.log(res.data.data.list)
+    //     //存储非首次登录的状态
+    //   }
+    // })
+    wx.setStorage({
+      key: 'noFirstTime',
+      data: true
+    })
   }
+    
 })

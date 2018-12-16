@@ -11,7 +11,7 @@
   margin-right: 40rpx;
   margin-bottom: 20rpx;
   border: 1px solid gray;
-  border-radius: 40rpx;
+  border-radius: 30rpx;
   color: gray;
   padding-left: 14rpx;
   padding-right: 14rpx;

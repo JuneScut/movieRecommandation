@@ -15,8 +15,8 @@ Page({
     interval: 5000,
     duration: 1000,
     recomMovies: [
-      '/images/shashou.jpg',
-      '/images/longmao.jpg',
+      {id: 1, title: '这个杀手不太冷', url: '/images/shashou.jpg'},
+      {id: 2, titel: '龙猫', url: '/images/longmao.jpg'},
       '/images/drawning.jpg'
     ]
   },
@@ -25,7 +25,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let self = this;
+    wx.request({
+    url:'https://www.easy-mock.com/mock/5c14fc797aeb86217625d848/projectManage/getNewHotMovie#!method=get',
+      header: {
+        'content-type': 'application/json'
+      },
+      success(res) {
+        // console.log(res.data)
+        self.setData({
+          recomMovies: res.data.data.data
+        })
+      }
+    })
   },
 
   /**
