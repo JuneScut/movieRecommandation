@@ -33,6 +33,18 @@ public class UserController
         return userService.login(user);
     }
     
+    @PostMapping("/wx-login")
+    public Object wxLogin(@RequestBody Map<String, Object> loginRequestMap)
+    {
+        return userService.wxLogin(loginRequestMap);
+    }
+    
+//    @GetMapping("/AES")
+//    public Object testAES()
+//    {
+//        return null;
+//    }
+    
     /**
      * 添加电影到用户的收藏夹
      * @param user_id

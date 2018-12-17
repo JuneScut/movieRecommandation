@@ -177,7 +177,7 @@ public class Movie
         return id;
     }
     
-//    public void setId(Integer id)
+//    public void setUser_id(Integer id)
 //    {
 //        this.id = id;
 //    }
