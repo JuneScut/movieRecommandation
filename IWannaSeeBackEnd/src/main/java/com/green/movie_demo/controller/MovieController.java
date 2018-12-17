@@ -96,5 +96,12 @@ public class MovieController
     {
         return userMovieService.removeARating(user_id, movie_id);
     }
+    
+    @PutMapping("/{movie_id}/ratings")
+    public Object updateARating(@PathVariable int movie_id, @RequestBody Rating rating)
+    {
+        if(movie_id != rating.getMovie_id()) return Result.BadRequest().build();
+        return userMovieService.updateARating(rating);
+    }
 }
 

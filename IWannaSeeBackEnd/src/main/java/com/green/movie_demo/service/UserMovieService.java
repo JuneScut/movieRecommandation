@@ -9,7 +9,6 @@ import com.green.movie_demo.mapper.UserInfoMapper;
 import com.green.movie_demo.mapper.UserMovieMapper;
 import com.green.movie_demo.util.ResultUtil;
 import com.green.movie_demo.util.SqlUtil;
-import org.apache.ibatis.jdbc.Null;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,8 +126,9 @@ public class UserMovieService
     
     public Result addARating(Rating rating)
     {
+        if(!rating.isScoreValid()) return Result.BadRequest().msg("评分取值为1-5").build();
         try{
-            Integer affetedRow = userMovieMapper.insertRating(rating);
+            Integer affetedRow = userMovieMapper.insertARating(rating);
             if(affetedRow == 1) return Result.OK().data(rating).build();
         }catch (Exception ex)
         {
@@ -172,7 +172,7 @@ public class UserMovieService
     public Result removeARating(int user_id, int movie_id)
     {
         try{
-            Integer affectedRow = userMovieMapper.deleteRating(user_id, movie_id);
+            Integer affectedRow = userMovieMapper.deleteARating(user_id, movie_id);
             if(affectedRow == 1) return Result.OK().build();
         }catch (Exception ex)
         {
@@ -181,4 +181,15 @@ public class UserMovieService
         return Result.BadRequest().build();
     }
     
+    public Result updateARating(Rating rating)
+    {
+        try{
+            int affectedRow = userMovieMapper.updateARating(rating);
+            if(affectedRow == 1) return Result.OK().build();
+        }catch (Exception ex)
+        {
+            logger.error(ex.toString());
+        }
+        return Result.BadRequest().build();
+    }
 }

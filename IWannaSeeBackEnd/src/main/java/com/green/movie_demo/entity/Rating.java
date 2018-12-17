@@ -1,7 +1,14 @@
 package com.green.movie_demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Rating
 {
+    @JsonIgnore
+    public static final int MIN_SCORE = 1;
+    @JsonIgnore
+    public static final int MAX_SCORE = 5;
+    
     private int user_id;
     private int movie_id;
     private int score;
@@ -45,5 +52,11 @@ public class Rating
     public void setComment(String comment)
     {
         this.comment = comment;
+    }
+    
+    @JsonIgnore
+    public boolean isScoreValid()
+    {
+        return MIN_SCORE <= score && score <= MAX_SCORE;
     }
 }

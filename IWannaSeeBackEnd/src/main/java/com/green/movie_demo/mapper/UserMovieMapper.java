@@ -73,7 +73,7 @@ public interface UserMovieMapper
     
     @Insert("insert into `rating` (`user_id`, `movie_id`, `score`, `comment`) " +
             "values (#{user_id}, #{movie_id}, #{score}, #{comment}) ")
-    Integer insertRating(Rating rating);
+    Integer insertARating(Rating rating);
     
     @Select("select * from `rating` where `movie_id` = #{movie_id} " + SqlUtil.LIMIT_OFFSET)
     List<Rating> findRatingsOfMovie(int movie_id, int offset, int limit);
@@ -89,7 +89,12 @@ public interface UserMovieMapper
     
     @Delete("delete from `rating` " +
             "where `user_id` = #{user_id} and `movie_id` = #{movie_id} ")
-    Integer deleteRating(int user_id, int movie_id);
+    Integer deleteARating(int user_id, int movie_id);
+    
+    @Update("update `rating` " +
+            "set `score` = #{score}, `comment` = #{comment} " +
+            "where `user_id` = #{user_id} and `movie_id` = #{movie_id} ")
+    Integer updateARating(Rating rating);
     
     //    @Select("select count(*) from `collection` where `user_id` = #{user_id} and `movie_id` = #{movie_id};")
     //    int getCollectionCnt(@Param("user_id")int user_id, @Param("movie_id") int movie_id);
