@@ -4,6 +4,10 @@
     <view>
       <image  class="poster" mode="aspectFit" src="{{detail.pic_url}}"></image>
     </view>
+    <view data-id="{{detail.id}}" class="collection-wrapper" bindtap='collectMovie'>
+      <image src='{{collectionImage}}'></image>
+      <text>{{collectionText}}</text>
+    </view>
     <view class="info">
       <view class="title">{{detail.title}}</view>
       <view class="subinfo">
@@ -33,5 +37,8 @@
       <view class="content">{{myItem}}</view>
     </view>
   </view>
-
+  <view class="editor-wrapper">
+    <image src="/images/editor.svg"></image>
+    <text>写下评论</text>
+  </view>
 </scroll-view>
