@@ -2,7 +2,10 @@ package com.green.movie_demo.service;
 
 import com.green.movie_demo.entity.Category;
 import com.green.movie_demo.entity.Movie;
+import com.green.movie_demo.entity.Rating;
 import com.green.movie_demo.entity.Result;
+import com.green.movie_demo.mapper.MovieMapper;
+import com.green.movie_demo.mapper.UserInfoMapper;
 import com.green.movie_demo.mapper.UserMovieMapper;
 import com.green.movie_demo.util.ResultUtil;
 import com.green.movie_demo.util.SqlUtil;
@@ -23,6 +26,12 @@ public class UserMovieService
     
     @Autowired
     private UserMovieMapper userMovieMapper;
+    
+    @Autowired
+    private MovieMapper movieMapper;
+    
+    @Autowired
+    private UserInfoMapper userInfoMapper;
     
     public Result addCollection(int user_id, int movie_id)
     {
@@ -113,5 +122,74 @@ public class UserMovieService
     {
         Integer affectedRow = userMovieMapper.deleteFavorCategory(user_id, category_id);
         return affectedRow == 1 ? Result.OK().build() : Result.BadRequest().build();
+    }
+    
+    public Result addARating(Rating rating)
+    {
+        if(!rating.isScoreValid()) return Result.BadRequest().msg("评分取值为1-5").build();
+        try{
+            Integer affetedRow = userMovieMapper.insertARating(rating);
+            if(affetedRow == 1) return Result.OK().data(rating).build();
+        }catch (Exception ex)
+        {
+            logger.error(ex.toString());
+        }
+        return Result.BadRequest().build();
+    }
+    
+    public Result getRatingsOfMovie(int movie_id, int page, int per_page)
+    {
+        try{
+            int total = userMovieMapper.findTotal_RatingsOfMovie(movie_id);
+            if(total == 0 && movieMapper.findAMovieById(movie_id) == null)
+                return Result.BadRequest().build();
+            
+            List<Rating> ratings = userMovieMapper.findRatingsOfMovie(movie_id, SqlUtil.offset(page, per_page), per_page);
+            return Result.OK().data(ResultUtil.total(total, ratings)).build();
+        }catch (Exception ex)
+        {
+            logger.error(ex.toString());
+        }
+        return  Result.BadRequest().build();
+    }
+    
+    public Result getRatingsOfUser(int user_id, int page, int per_page)
+    {
+        try{
+            int total = userMovieMapper.findTotal_RatingsOfUser(user_id);
+            if(total == 0 && userInfoMapper.findUserById(user_id) == null)
+                return Result.BadRequest().build();
+            
+            List<Rating> ratings = userMovieMapper.findRatingsOfUser(user_id, SqlUtil.offset(page, per_page), per_page);
+            return Result.OK().data(ResultUtil.total(total, ratings)).build();
+        }catch (Exception ex)
+        {
+            logger.error(ex.toString());
+        }
+        return  Result.BadRequest().build();
+    }
+    
+    public Result removeARating(int user_id, int movie_id)
+    {
+        try{
+            Integer affectedRow = userMovieMapper.deleteARating(user_id, movie_id);
+            if(affectedRow == 1) return Result.OK().build();
+        }catch (Exception ex)
+        {
+            logger.error(ex.toString());
+        }
+        return Result.BadRequest().build();
+    }
+    
+    public Result updateARating(Rating rating)
+    {
+        try{
+            int affectedRow = userMovieMapper.updateARating(rating);
+            if(affectedRow == 1) return Result.OK().build();
+        }catch (Exception ex)
+        {
+            logger.error(ex.toString());
+        }
+        return Result.BadRequest().build();
     }
 }

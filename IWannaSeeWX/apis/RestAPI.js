@@ -1,6 +1,6 @@
 
-// export const baseURL = 'http://localhost:8080'; // 本地测试
- export const baseURL = 'http://120.79.178.50:8080'; // 阿里云服务器
+//export const baseURL = 'http://localhost:8080'; // 本地测试
+export const baseURL = 'http://120.79.178.50:8080'; // 阿里云服务器
 export const GET = 'GET';
 export const POST = 'POST';
 export const DELETE = 'DELETE';
@@ -56,7 +56,7 @@ export const addMovieToCollection = (user_id, movid_id) => {
 // 用户取消收藏一部电影
 export const removeMovieFromCollection = (user_id, movid_id) => {
   return promiseRequest({
-    url: baseURL + '/users/' + user_id + '/collections?movie_id=' +  movid_id,
+    url: baseURL + '/users/' + user_id + '/collections?movie_id=' + movid_id,
     method: DELETE
   })
 };
@@ -127,7 +127,7 @@ export const getFavorCategories = (user_id) => {
 // 用户删除喜好的电影类别
 export const removeFavorCategory = (user_id, category_id) => {
   return promiseRequest({
-    url: baseURL + '/users/' + user_id + '/favor-categories?category_id='+category_id,
+    url: baseURL + '/users/' + user_id + '/favor-categories?category_id=' + category_id,
     method: DELETE
   })
 };
@@ -198,17 +198,75 @@ export const getKMoviesUnderCategory = (category_id, K, orderByRank) => {
 // 获取某一类别下的电影
 // 默认参数（可省略）：page = 1, per_page = 10
 export const getMoivesUnderCategory = (category_id, page, per_page) => {
-  page = page? page : 1
+  page = page ? page : 1
   per_page = per_page ? per_page : 10
   return promiseRequest({
     url: baseURL + '/movies/categories/' + category_id + '/movies',
     method: GET,
-    data:{
+    data: {
       'page': page,
       'per_page': per_page
     }
   })
 };
+
+
+/* 
+rating = {
+  'user_id': 1,
+  'movie_id': 2,
+  'rating': 4 // 
+  'comment': 'cool!'
+}
+*/
+export const addARating = (rating) => {
+  return promiseRequest({
+    url: baseURL + '/movies/' + rating.movie_id + '/ratings',
+    method: POST,
+    data: rating
+  })
+}
+
+export const getRatingsOfMovie = (movie_id, page, per_page) => {
+  page = page ? page : 1
+  per_page = per_page ? per_page : 10
+  return promiseRequest({
+    url: baseURL + '/movies/' + movie_id + '/ratings',
+    method: GET,
+    data: {
+      'page': page,
+      'per_page': per_page
+    }
+  })
+}
+
+export const getRatingsOfUser = (user_id, page, per_page) => {
+  page = page ? page : 1
+  per_page = per_page ? per_page : 10
+  return promiseRequest({
+    url: baseURL + '/users/' + user_id + '/ratings',
+    method: GET,
+    data: {
+      'page': page,
+      'per_page': per_page
+    }
+  })
+}
+
+export const removeARating = (user_id, movie_id) => {
+  return promiseRequest({
+    url: baseURL + '/movies/' + movie_id + '/ratings?user_id=' + user_id,
+    method: DELETE
+  })
+}
+
+export const updateARating = (rating) => {
+  return promiseRequest({
+    url: baseURL + '/movies/' + rating.movie_id + '/ratings',
+    method: PUT,
+    data: rating
+  })
+}
 
 // 
 // export const getAllCategories = () => {
@@ -217,4 +275,28 @@ export const getMoivesUnderCategory = (category_id, page, per_page) => {
 //     method: GET
 //   })
 // };
+
+// ------------- debug -----------
+export const testAPI = () => {
+  var rating = {
+    'user_id': 1,
+    'movie_id': 100,
+    'score': 5,
+    'comment': 'hope'
+  }
+
+  //updateARating(rating)
+  //getRatingsOfMovie(1)
+  //getRatingsOfUser(1)
+  //addARating(rating)
+  removeARating(1, 100)
+    .then((result) => {
+      console.log(result);
+      console.log(result.data);
+      var data = result.data.data;
+      console.log(data);
+    }).catch((err) => {
+      console.log(err)
+    })
+};
 
