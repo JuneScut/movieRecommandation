@@ -19,23 +19,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let self = this;
-    try {
-      const res = wx.getStorageInfoSync()
-      if (res.keys.indexOf("userInfo") !== -1 ){
-        self.setData({
-          showGetInfoButton: false
-        })
-      }
-    } catch (e) {
-      // Do something when catch error
-    }
-    wx.getStorage({
-      key: 'userInfo',
-      success(res) {
-        self.setData({
-          userInfo: res.data
-        })
+    // 查看是否授权
+    var that = this;
+    wx.getSetting({
+      success: function (res) {
+        if (res.authSetting['scope.userInfo']) {
+          wx.getUserInfo({
+            success: function (res) {
+              //从数据库获取用户信息
+              // that.queryUsreInfo();
+              // 用户已经授权过
+              let objectData = JSON.parse(res.rawData)
+              that.setData({
+                showGetInfoButton: false,
+                userInfo: objectData
+              })
+            }
+          });
+        }
       }
     })
   },
@@ -115,10 +116,14 @@ Page({
       this.setData({
         currentType: 0
       })
-    } else {
+    } else if (e.currentTarget.dataset.type === '1'){
       this.setData({
         currentType: 1
-      })
+      }) 
+    } else {
+      this.setData({
+        currentType: 2
+      }) 
     }
   }
 })
