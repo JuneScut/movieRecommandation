@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:9527", maxAge = 3600)
+//@CrossOrigin(origins = "http://localhost:9527", maxAge = 3600)
+@CrossOrigin()
 @RestController
 @RequestMapping("/users")
 public class UserController
@@ -117,5 +118,13 @@ public class UserController
     public Object removeFavorCategory(@PathVariable int user_id, @RequestParam int category_id)
     {
         return userMovieService.removeFavorCategory(user_id, category_id);
+    }
+    
+    @GetMapping("/{user_id}/ratings")
+    public Object getRatingsOfUser(@PathVariable int user_id,
+                                   @RequestParam(value = "page", defaultValue = "1") int page,
+                                    @RequestParam(value = "per_page", defaultValue = "10") int per_page)
+    {
+        return userMovieService.getRatingsOfUser(user_id, page, per_page);
     }
 }

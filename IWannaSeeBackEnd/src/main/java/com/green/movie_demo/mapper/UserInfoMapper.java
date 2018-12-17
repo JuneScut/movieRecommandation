@@ -23,6 +23,9 @@ public interface UserInfoMapper
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     int insertUser(User user);
     
+    @Select("select * from `user` where `use_id` = #{user_id} ")
+    User findUserById(int user_id);
+    
     // --------- User Movie --------
     
     

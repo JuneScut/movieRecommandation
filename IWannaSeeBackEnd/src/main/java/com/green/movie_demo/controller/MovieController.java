@@ -1,16 +1,23 @@
 package com.green.movie_demo.controller;
 
+import com.green.movie_demo.entity.Rating;
+import com.green.movie_demo.entity.Result;
 import com.green.movie_demo.service.MovieService;
+import com.green.movie_demo.service.UserMovieService;
+import com.green.movie_demo.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
+@CrossOrigin()
 @RestController
 @RequestMapping("/movies")
 public class MovieController
 {
     @Autowired
     private MovieService movieService;
+    
+    @Autowired
+    private UserMovieService userMovieService;
     
     // 获取电影简略信息
     @GetMapping(value = "/info")
@@ -67,6 +74,27 @@ public class MovieController
                                          @RequestParam(value = "per_page", defaultValue = "10") int per_page)
     {
         return movieService.getMoviesUnderCategory(category_id, page, per_page);
+    }
+    
+    @PostMapping("/{movie_id}/ratings")
+    public Object addARating(@PathVariable("movie_id") int movie_id, @RequestBody Rating rating)
+    {
+        if(movie_id != rating.getMovie_id()) return Result.BadRequest().build();
+        return userMovieService.addARating(rating);
+    }
+    
+    @GetMapping("/{movie_id}/ratings")
+    public Object getRatingsOfMovie(@PathVariable int movie_id,
+                                    @RequestParam(value = "page", defaultValue = "1") int page,
+                                    @RequestParam(value = "per_page", defaultValue = "10") int per_page)
+    {
+        return userMovieService.getRatingsOfMovie(movie_id, page, per_page);
+    }
+    
+    @DeleteMapping("/{movie_id}/ratings")
+    public Object removeARating(@PathVariable int movie_id, @RequestParam int user_id)
+    {
+        return userMovieService.removeARating(user_id, movie_id);
     }
 }
 

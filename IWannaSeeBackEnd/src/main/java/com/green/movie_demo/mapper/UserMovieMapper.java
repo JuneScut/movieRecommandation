@@ -2,6 +2,7 @@ package com.green.movie_demo.mapper;
 
 import com.green.movie_demo.entity.Category;
 import com.green.movie_demo.entity.Movie;
+import com.green.movie_demo.entity.Rating;
 import com.green.movie_demo.util.SqlUtil;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
@@ -69,6 +70,26 @@ public interface UserMovieMapper
     @Delete("delete from `favor_category` " +
             "where `user_id` = #{user_id} and `category_id` = #{category_id} ")
     Integer deleteFavorCategory(int user_id, int category_id);
+    
+    @Insert("insert into `rating` (`user_id`, `movie_id`, `score`, `comment`) " +
+            "values (#{user_id}, #{movie_id}, #{score}, #{comment}) ")
+    Integer insertRating(Rating rating);
+    
+    @Select("select * from `rating` where `movie_id` = #{movie_id} " + SqlUtil.LIMIT_OFFSET)
+    List<Rating> findRatingsOfMovie(int movie_id, int offset, int limit);
+    
+    @Select("select count(*) from `rating` where `movie_id` = #{movie_id} ")
+    Integer findTotal_RatingsOfMovie(int movie_id);
+    
+    @Select("select * from `rating` where `user_id` = #{user_id} " + SqlUtil.LIMIT_OFFSET)
+    List<Rating> findRatingsOfUser(int user_id, int offset, int limit);
+    
+    @Select("select count(*) from `rating` where `user_id` = #{user_id} ")
+    Integer findTotal_RatingsOfUser(int user_id);
+    
+    @Delete("delete from `rating` " +
+            "where `user_id` = #{user_id} and `movie_id` = #{movie_id} ")
+    Integer deleteRating(int user_id, int movie_id);
     
     //    @Select("select count(*) from `collection` where `user_id` = #{user_id} and `movie_id` = #{movie_id};")
     //    int getCollectionCnt(@Param("user_id")int user_id, @Param("movie_id") int movie_id);
