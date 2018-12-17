@@ -1,4 +1,4 @@
-
+import * as RestAPI from '../../apis/RestAPI';
 Page({
   data: {
     id: 4,
@@ -33,7 +33,10 @@ Page({
         ],
     screen: {
       minHeight: 'auto'
-    }
+    },
+    collectionFlag: false,
+    collectionText: '收藏',
+    collectionImage: '/images/heart-noselected.svg'
   },
   ellipsis: function () {
     var value = !this.data.ellipsis;
@@ -46,6 +49,7 @@ Page({
       id: query.id
     })
     var self = this;
+    this.getIfCollect()
     // 设置页面高度，避免底部出现白色区域。
     // wx.getSystemInfo({
     //   success: function (info) {
@@ -79,4 +83,51 @@ Page({
       }
     })
   },
-   });
+  collectMovie(e){
+    let id = parseInt(this.data.id)
+    let flag = !(this.data.collectionFlag)
+    let text = this.data.collectionFlag === true ? '取消收藏' : '收藏'
+    let url = this.data.collectionFlag === true ? '/images/heart-selected.svg'  : '/images/heart-noselected.svg'
+    let self = this
+    console.log(id)
+    if (!this.data.collectionFlag) {
+      RestAPI.addMovieToCollection(4, id).then(res => {
+        self.setData({
+          collectionFlag: flag,
+          collectionText: text,
+          collectionImage: url
+        })
+      }).catch(res => {
+        console.log(res)
+      })
+    } else {
+      RestAPI.removeMovieFromCollection(4,id).then(res => {
+        self.setData({
+          collectionFlag: flag,
+          collectionText: text,
+          collectionImage: url
+        })
+      }).catch(res => {
+        console.log(res)
+      })
+    }
+  },
+  getIfCollect(){
+    let id = parseInt(this.data.id);
+    let self = this;
+    let flag = true
+    let text = '取消收藏' 
+    let url = '/images/heart-selected.svg'
+    RestAPI.checkACollectfedMovie(4, id).then(res => {
+      console.log(res.data)
+      if (res.data.status === 200 ) {
+        console.log('111')
+        self.setData({
+          collectionFlag: flag,
+          collectionText: text,
+          collectionImage: url
+        })
+      }
+    })
+  }
+});

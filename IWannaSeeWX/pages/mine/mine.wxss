@@ -51,3 +51,21 @@
 .navigator-hover{
   color: #49AA34;
 }
+.tag-wrapper {
+  color: white;
+  position: relative;
+  display: inline-block;
+  width: 160rpx;
+  height: 160rpx;
+  font-size: 14px;
+}
+.tag-wrapper image {
+  width: 160rpx;
+  height: 160rpx;
+}
+.tag-wrapper text{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%)
+}

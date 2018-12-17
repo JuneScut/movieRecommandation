@@ -2,7 +2,6 @@
 <view class="container">
   <block wx:if="{{showGetInfoButton}}">
     <view class="no-info">
-      <text>{{showGetInfoButton}}</text>
       <text style='margin-bottom: 20px; font-size: 14px'>暂无信息</text>
       <button open-type='getUserInfo' lang="zh_CN" bindgetuserinfo="onGotUserInfo" 
       type='primary'>获取用户信息</button>
@@ -29,10 +28,19 @@
     </view>
     <view class="tab">
       <view data-type="0" class="tab-item {{currentType==0? 'on': ''}}" bindtap="changeType"><text>评论</text></view>
-      <view  data-type="1" class="tab-item {{currentType==1? 'on': ''}}" bindtap="changeType"><text>收藏</text></view>
+      <view  data-type="1" class="tab-item {{currentType==1? 'on': ''}}" bindtap="changeType"><text>标签</text></view>
+      <view data-type="2" class="tab-item {{currentType==2? 'on': ''}}" bindtap="changeType"><text>收藏</text></view>
     </view>
     <view class="info">
       <image src="/images/empty.jpg" class="info-image"></image>
+    </view>
+    <view class="tag-wrapper">
+    <image src="/images/tag-background.png"></image>
+    <text>标签</text>
+    </view>
+    <view class="tag-wrapper">
+    <image src="/images/tag-background2.png"></image>
+    <text>标签</text>
     </view>
   </block>
 </view>

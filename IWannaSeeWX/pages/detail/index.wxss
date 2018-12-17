@@ -105,6 +105,34 @@
   font-weight: bold;
   border-bottom: 1rpx solid gray
 }
+
+.collection-wrapper{
+  position: absolute;
+  z-index: 1000;
+  top: 400rpx;
+  left: 40rpx;
+  color: white;
+  font-size: 14px;
+}
+.collection-wrapper image{
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 2px;
+  vertical-align: middle
+}
+.editor-wrapper{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background:  rgb(73, 170, 52);
+  width: 200rpx;
+  border-radius: 10rpx;
+  color: white
+}
+.editor-wrapper image{
+  width: 50rpx;
+  height: 50rpx;
+}
 /* .banner{
   box-shadow: 0 0 10px #111;
   border-bottom: solid 1px #111;

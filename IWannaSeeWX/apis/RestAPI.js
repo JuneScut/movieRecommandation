@@ -1,6 +1,7 @@
 
 // export const baseURL = 'http://localhost:8080'; // 本地测试
  export const baseURL = 'http://120.79.178.50:8080'; // 阿里云服务器
+
 export const GET = 'GET';
 export const POST = 'POST';
 export const DELETE = 'DELETE';
@@ -97,7 +98,7 @@ export const getCollectedMovies = (user_id, page, per_page) => {
 }
 
 // 用户查询是否已收藏一部电影
-export const checkACollectedMovie = (user_id, movie_id) => {
+export const checkACollectfedMovie = (user_id, movie_id) => {
   return promiseRequest({
     url: baseURL + '/users/' + user_id + '/collections/' + movie_id,
     method: GET,
