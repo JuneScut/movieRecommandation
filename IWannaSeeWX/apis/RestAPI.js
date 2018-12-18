@@ -1,5 +1,5 @@
 
-//export const baseURL = 'http://localhost:8080'; // 本地测试
+// export const baseURL = 'http://localhost:8080'; // 本地测试
 export const baseURL = 'http://120.79.178.50:8080'; // 阿里云服务器
 export const GET = 'GET';
 export const POST = 'POST';
@@ -41,6 +41,110 @@ function promiseRequest(options = {}) {
 }
 
 // ***************** API *********************
+
+/*
+wx openid 和 unionid
+- unionid: 微信用户的唯一标识，即[对于一个微信用户，unionid是唯一的]，在微信平台下公众号、订阅号、小程序上使用
+- openid: 对于同一微信用户，在微信平台下公众号、订阅号、小程序三者[各自]持有一个openid，即至少有3个openid...
+*/
+
+// miniprogram login
+// 小程序登录，使用小程序openid标识用户唯一性
+export const mplogin = () => {
+  var requestParams = {
+    'code': '',
+    'userInfoData': null
+  };
+
+  // 前端逻辑
+  wx.getSetting({
+    success(res) {
+      if (res.authSetting['scope.userInfo']) {
+        // 用户已授权过[用户信息]
+        wx.getUserInfo({
+          success(res) {
+            requestParams.userInfoData = res;
+
+            console.log(requestParams)
+
+            wx.login({
+              success(res) {
+                if (res.code) {
+                  requestParams.code = res.code;
+
+                  promiseRequest({
+                    url: baseURL + '/users/wx-login',
+                    method: POST,
+                    data: requestParams
+                  }).then((result) => {
+                    // TODO: 保存user_id等信息
+                    console.log(result)
+                    console.log(result.data)
+                    var data = result.data.data
+                    console.log(data)
+                  }).catch((err) => {
+                    console.log(err);
+                  });
+                } else {
+                  console.log('登录失败! ' + res.errMsg);
+                }
+              }
+            })
+          }
+        })
+      }
+
+
+    }
+  })
+};
+
+// 微信全平台登录，使用unionid标识用户身份
+export const unionlogin = () => {
+  var requestParams = {
+    'code': '',
+    'userInfoData': null
+  };
+
+  wx.getSetting({
+    success(res) {
+      if (res.authSetting['scope.userInfo']) {
+        // 用户已授权过[用户信息]
+        wx.getUserInfo({
+          success(res) {
+            requestParams.userInfoData = res;
+
+            console.log(requestParams)
+
+            wx.login({
+              success(res) {
+                if (res.code) {
+                  requestParams.code = res.code;
+
+                  promiseRequest({
+                    url: baseURL + '/users/wx-login',
+                    method: POST,
+                    data: requestParams
+                  }).then((result) => {
+                    // TODO: 保存user_id等信息
+                    console.log(result)
+                    console.log(result.data)
+                    var data = result.data.data
+                    console.log(data)
+                  }).catch((err) => {
+                    console.log(err);
+                  });
+                } else {
+                  console.log('登录失败! ' + res.errMsg);
+                }
+              }
+            })
+          }
+        })
+      }
+    }
+  })
+};
 
 // 用户收藏一部电影
 export const addMovieToCollection = (user_id, movid_id) => {
@@ -278,25 +382,27 @@ export const updateARating = (rating) => {
 
 // ------------- debug -----------
 export const testAPI = () => {
-  var rating = {
-    'user_id': 1,
-    'movie_id': 100,
-    'score': 5,
-    'comment': 'hope'
-  }
+  login()
+
+  // var rating = {
+  //   'user_id': 1,
+  //   'movie_id': 100,
+  //   'score': 5,
+  //   'comment': 'hope'
+  // }
 
   //updateARating(rating)
   //getRatingsOfMovie(1)
   //getRatingsOfUser(1)
   //addARating(rating)
-  removeARating(1, 100)
-    .then((result) => {
-      console.log(result);
-      console.log(result.data);
-      var data = result.data.data;
-      console.log(data);
-    }).catch((err) => {
-      console.log(err)
-    })
+  // removeARating(1, 100)
+  //   .then((result) => {
+  //     console.log(result);
+  //     console.log(result.data);
+  //     var data = result.data.data;
+  //     console.log(data);
+  //   }).catch((err) => {
+  //     console.log(err)
+  //   })
 };
 

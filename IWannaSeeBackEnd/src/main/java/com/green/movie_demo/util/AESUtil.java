@@ -15,20 +15,20 @@ import java.util.Scanner;
  */
 public class AESUtil
 {
-    @Value("${appid}")
-    private static String appid;
     
-    public static WXUserInfo WX_UserInfo_decode(String sessionKey, Map<String, Object>userInfo) throws Exception
+    public static WXUserInfo WX_UserInfo_decode(String appid, String sessionKey, Map<String, Object>userInfo) throws Exception
     {
         File srcDir = new File("");
         String scriptFilePath = srcDir.getAbsolutePath() +
-                "\\main\\java\\com\\green\\movie_demo" +
+                "\\src\\main\\java\\com\\green\\movie_demo" +
                 "\\script\\aes\\decode_WXUserInfo.py";
         
         String jsonStr = "";
         String[] args = {"python", scriptFilePath, appid, sessionKey, (String)userInfo.get("encryptedData"), (String)userInfo.get("iv")};
         try{
             Process process = Runtime.getRuntime().exec(args);
+            process.waitFor();
+//            Scanner input = new Scanner(process.getInputStream(), "utf-8");
             Scanner input = new Scanner(process.getInputStream());
             while(input.hasNextLine())
             {
@@ -41,6 +41,7 @@ public class AESUtil
                 jsonStr += line;
             }
             
+            input.close();
         }catch (IOException ex)
         {
             ex.printStackTrace();

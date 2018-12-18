@@ -21,23 +21,30 @@ public class UserController
     @Autowired
     private UserMovieService userMovieService;
     
-    @PostMapping("/signUp")
-    public Object signUp(@RequestBody User user)
+//    @PostMapping("/signUp")
+//    public Object signUp(@RequestBody User user)
+//    {
+//        return userService.signUp(user);
+//    }
+//
+//    @RequestMapping(value = "/login", method = RequestMethod.POST)
+//    public Object login(@RequestBody User user)
+//    {
+//        return userService.login(user);
+//    }
+    
+    // 微信小程序登录
+    @PostMapping("/wx-mpLogin")
+    public Object wx_mpLogin(@RequestBody Map<String, Object> loginRequestMap)
     {
-        return userService.signUp(user);
+        return userService.wx_mpLogin(loginRequestMap);
     }
     
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public Object login(@RequestBody User user)
-    {
-        return userService.login(user);
-    }
-    
-    @PostMapping("/wx-login")
-    public Object wxLogin(@RequestBody Map<String, Object> loginRequestMap)
-    {
-        return userService.wxLogin(loginRequestMap);
-    }
+//    @PostMapping("/wx-unionlogin")
+//    public Object wxUnionLogin(@RequestBody Map<String, Object> loginRequestMap)
+//    {
+//        return userService.wxUnionLogin(loginRequestMap);
+//    }
     
 //    @GetMapping("/AES")
 //    public Object testAES()
