@@ -1,13 +1,14 @@
 <!--pages/mine/mine.wxml-->
 <view class="container">
   
-  <!-- 绿佳同学测试API专用 -->
-  <button bindtap='testAPI' type='primary'>Test API</button>
+  <!-- <button bindtap='testAPI'>Test API</button> -->
+  <!-- <button bindtap="showDialog">test dialog</button> -->
+  <wux-dialog id="wux-dialog" />
 
   <block wx:if="{{showGetInfoButton}}">
     <view class="no-info">
       <text style='margin-bottom: 20px; font-size: 14px'>暂无信息</text>
-      <button open-type='getUserInfo' lang="zh_CN" bindgetuserinfo="onGotUserInfo" type='primary'>获取用户信息</button>
+      <button bindtap="onGotUserInfo" type='primary'>获取用户信息</button>
     </view>
   </block>
   <block wx:else>
@@ -35,19 +36,32 @@
       <view data-type="2" class="tab-item {{currentType==2? 'on': ''}}" bindtap="changeType"><text>收藏</text></view>
     </view>
     <view class="info" wx:if="{{currentType==0 }}">
-      <image src="/images/empty.jpg" class="info-image"></image>
+      <view wx:for="{{myComments}}" wx:key="index" >
+        <view class="fav-movie-wrapper" data-id="{{item.movie_id}}" bindtap='jump2Detail' >
+          <image src="{{item.pic_url}}"></image>
+          <view class="fav-movie-info">
+            <multiple-rate rate="{{item.score}}"  class="fav-movie-title" disabled="true"></multiple-rate>
+            <text class="fav-movie-directors" style="margin-top: 20px; margin-left: 10px">{{item.comment}}</text>
+          </view>
+        </view>
+      </view>
     </view>
 
     <view class="info" wx:if="{{currentType==1}}">
       <view class="tag-wrapper" wx:for="{{userTags}}" wx:key="index">
-        <image src="/images/tag-background.png"></image>
-        <text>{{item.title}}</text>
+        <view bindlongpress='deleteTag' data-id='{{item.id}}'>
+          <image src="/images/tag-background.png"></image>
+          <text>{{item.title}}</text>
+        </view>
+      </view>
+      <view class="tag-wrapper">
+        <image src="/images/addTag.png" style="width: 120rpx; height: 120rpx"></image>
       </view>
     </view>
 
     <view class="info" wx:if="{{currentType==2}}">
       <view wx:for="{{favMovies}}" wx:key="index" >
-        <view class="fav-movie-wrapper" data-id="{{item.id}}" bindtap='jump2Detail' bindlongpress='deleteFavMovie'>
+        <view class="fav-movie-wrapper" data-id="{{item.id}}" bindtap='jump2Detail' >
           <image src="{{item.pic_url}}"></image>
           <view class="fav-movie-info">
             <text class="fav-movie-title">{{item.title}}</text>
@@ -56,23 +70,6 @@
         </view>
       </view>
     </view>
-
-    <!-- <dialog id="modal"
-            title="这里是标题"
-            cancelText="再想想"
-            confirmText="确认提交"
-            bind:cancelEvent="_cancelEvent"  
-            bind:confirmEvent="_confirmEventFirst" 
-            wx:if="{{showDeleteFavDialog}}"
-            >
-
-    <view class='modal-body'>
-        <view> 这是自定义内容1 </view>     
-        <view> 这是自定义内容2 </view>    
-        <view> 这是自定义内容3 </view>    
-    </view>
-
-</dialog> -->
 
   </block>
 </view>
