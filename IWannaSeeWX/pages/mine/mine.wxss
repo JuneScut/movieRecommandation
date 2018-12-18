@@ -97,7 +97,7 @@
   display: inline-block;
   width: 160rpx;
   height: 160rpx;
-  vertical-align: middle;
+  vertical-align: top;
 }
 .fav-movie-info{
   display: inline-block;

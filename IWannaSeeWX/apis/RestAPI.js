@@ -61,10 +61,13 @@ export const mplogin = () => {
             'code': res.code
           }
         }).then((result) => {
-
           // TODO: 保存user_id，openid应该不用保存
           console.log(result)
           console.log(result.data)
+          wx.setStorage({
+            key: 'userId',
+            data: result.data.user_id
+          })
           var data = result.data.data
           console.log(data)
 

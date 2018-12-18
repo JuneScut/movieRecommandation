@@ -47,9 +47,7 @@ Component({
       })
     },
     handleTap: function (e) {
-      console.log("111")
       if (this.data.disabled) {
-        console.log("22")
         return;
       }
       this.setData({

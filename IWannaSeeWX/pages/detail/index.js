@@ -2,6 +2,7 @@ import * as RestAPI from '../../apis/RestAPI';
 Page({
   data: {
     id: 4,
+    userId: 5,
     detail: {
       ellipsis: true, /* 文字是否收起，默认收起*/
       title: "肖申克的救赎",
@@ -91,7 +92,7 @@ Page({
     let self = this
     console.log(id)
     if (!this.data.collectionFlag) {
-      RestAPI.addMovieToCollection(4, id).then(res => {
+      RestAPI.addMovieToCollection(this.data.userId, id).then(res => {
         self.setData({
           collectionFlag: flag,
           collectionText: text,
@@ -101,7 +102,7 @@ Page({
         console.log(res)
       })
     } else {
-      RestAPI.removeMovieFromCollection(4,id).then(res => {
+      RestAPI.removeMovieFromCollection(this.data.userId,id).then(res => {
         self.setData({
           collectionFlag: flag,
           collectionText: text,
@@ -118,7 +119,7 @@ Page({
     let flag = true
     let text = '取消收藏' 
     let url = '/images/heart-selected.svg'
-    RestAPI.checkACollectfedMovie(4, id).then(res => {
+    RestAPI.checkACollectfedMovie(this.data.userId, id).then(res => {
       console.log(res.data)
       if (res.data.status === 200 ) {
         console.log('111')

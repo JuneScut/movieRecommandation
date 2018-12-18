@@ -10,12 +10,12 @@
   <view class="my-comment">
     <view class="star-wrapper">
       <view style='margin-bottom: 20px;'>评分</view>
-      <multiple-rate rate="0"></multiple-rate>
+      <multiple-rate rate="{{score}}" id="self-rate"></multiple-rate>
     </view>
   </view>
   </view>
   <view class="comment-info">
-    <textarea placeholder='我来说两句' ></textarea>
+    <textarea placeholder='我来说两句' value='{{commentContent}}' bindinput="getContent">{{commentContent}}</textarea>
   </view>
-  <button class="commit-button">提交</button>
+  <button class="commit-button" bindtap='commitComment'>提交</button>
 </view>
