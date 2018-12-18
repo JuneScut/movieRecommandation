@@ -1,4 +1,9 @@
 
+WX-session-url: https://api.weixin.qq.com/sns/jscode2session
+appid: wx0674242876242421
+secret: 6ef2a4ad409320bba883c07266bcaa4f
+#secret: ca8527194e9251e466a122d8c383f115
+
 
 server:
   port: 8080

@@ -1,4 +1,6 @@
 // pages/mine/mine.js
+import * as RestAPI from '../../apis/RestAPI.js'
+
 Page({
   data: {
     showGetInfoButton: true,
@@ -125,5 +127,10 @@ Page({
         currentType: 2
       }) 
     }
+  },
+
+  testAPI(e)
+  {
+    RestAPI.testAPI()
   }
 })

@@ -1,10 +1,12 @@
 <!--pages/mine/mine.wxml-->
 <view class="container">
+  
+  <button bindtap='testAPI'>Test API</button>
+
   <block wx:if="{{showGetInfoButton}}">
     <view class="no-info">
       <text style='margin-bottom: 20px; font-size: 14px'>暂无信息</text>
-      <button open-type='getUserInfo' lang="zh_CN" bindgetuserinfo="onGotUserInfo" 
-      type='primary'>获取用户信息</button>
+      <button open-type='getUserInfo' lang="zh_CN" bindgetuserinfo="onGotUserInfo" type='primary'>获取用户信息</button>
     </view>
   </block>
   <block wx:else>
