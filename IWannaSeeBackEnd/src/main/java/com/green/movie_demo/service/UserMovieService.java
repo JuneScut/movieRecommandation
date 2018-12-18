@@ -1,9 +1,6 @@
 package com.green.movie_demo.service;
 
-import com.green.movie_demo.entity.Category;
-import com.green.movie_demo.entity.Movie;
-import com.green.movie_demo.entity.Rating;
-import com.green.movie_demo.entity.Result;
+import com.green.movie_demo.entity.*;
 import com.green.movie_demo.mapper.MovieMapper;
 import com.green.movie_demo.mapper.UserInfoMapper;
 import com.green.movie_demo.mapper.UserMovieMapper;
@@ -37,6 +34,9 @@ public class UserMovieService
     {
         try
         {
+            User user = userInfoMapper.findUserById(user_id);
+            if(user == null) return Result.BadRequest().msg("用户不存在").build();
+    
             int affectedRow = userMovieMapper.insertIntoCollection(user_id, movie_id);
             if (affectedRow == 1)
             {

@@ -79,7 +79,7 @@ public class MovieController
     @PostMapping("/{movie_id}/ratings")
     public Object addARating(@PathVariable("movie_id") int movie_id, @RequestBody Rating rating)
     {
-        if(movie_id != rating.getMovie_id()) return Result.BadRequest().build();
+        if(movie_id != rating.getMovie_id()) return Result.BadRequest().msg("评分的movie_id和路径中的movie_id不一致").build();
         return userMovieService.addARating(rating);
     }
     

@@ -125,6 +125,16 @@ export const unionlogin = () => {
   })
 };
 
+// 删除用户，用于测试登录用户是否为新用户
+// 该操作会引发[删库]操作，用户所有数据丢失
+// 因为不想改动数据库，所以该接口慎用吧
+export const deleteWXUser = (user_id) => {
+  return promiseRequest({
+    url: baseURL + '/users/' + user_id,
+    method: DELETE
+  })
+}
+
 // 用户收藏一部电影
 export const addMovieToCollection = (user_id, movid_id) => {
   return promiseRequest({
@@ -362,6 +372,7 @@ export const updateARating = (rating) => {
 // ------------- debug -----------
 export const testAPI = () => {
   mplogin()
+  // deleteWXUser(55)
 
   // var rating = {
   //   'user_id': 1,
@@ -375,13 +386,13 @@ export const testAPI = () => {
   //getRatingsOfUser(1)
   //addARating(rating)
   // removeARating(1, 100)
-  //   .then((result) => {
-  //     console.log(result);
-  //     console.log(result.data);
-  //     var data = result.data.data;
-  //     console.log(data);
-  //   }).catch((err) => {
-  //     console.log(err)
-  //   })
+    // .then((result) => {
+    //   console.log(result);
+    //   console.log(result.data);
+    //   var data = result.data.data;
+    //   console.log(data);
+    // }).catch((err) => {
+    //   console.log(err)
+    // })
 };
 

@@ -1,7 +1,8 @@
 <!--pages/mine/mine.wxml-->
 <view class="container">
   
-  <button bindtap='testAPI'>Test API</button>
+  <!-- 绿佳同学测试API专用 -->
+  <button bindtap='testAPI' type='primary'>Test API</button>
 
   <block wx:if="{{showGetInfoButton}}">
     <view class="no-info">
