@@ -1,4 +1,5 @@
 // pages/comment/index.js
+import * as RestAPI from '../../apis/RestAPI';
 Page({
 
   /**
@@ -7,6 +8,7 @@ Page({
   data: {
     movieId: 1,
     title: '大话西游',
+    userId: 11,
     pic_url: 'https://img1.doubanio.com/view/photo/m/public/p2454008807.webp',
     detail: {
       ellipsis: true, /* 文字是否收起，默认收起*/
@@ -16,7 +18,9 @@ Page({
       douban_quote: "希望让人自由。",
       pic_url: "https://img1.doubanio.com/view/photo/m/public/p2454008807.webp"
     },
-    starFlag: 5
+    starFlag: 5,
+    score: 0,
+    commentContent: ''
   },
 
   /**
@@ -80,34 +84,31 @@ Page({
   onShareAppMessage: function () {
 
   },
-  changeOne: function () {
-    var that = this;
-    that.setData({
-      starFlag: 1
-    });
+  getContent(e) {
+    //console.log(e)
+    this.setData({
+      commentContent: e.detail.value
+    })
   },
-  changeTwo: function () {
-    var that = this;
-    that.setData({
-      starFlag: 2
-    });
-  },
-  changeThree: function () {
-    var that = this;
-    that.setData({
-      starFlag: 3
-    });
-  },
-  changeFour: function () {
-    var that = this;
-    that.setData({
-      starFlag: 4
-    });
-  },
-  changeFive: function () {
-    var that = this;
-    that.setData({
-      starFlag: 5
-    });
+  commitComment(){
+    console.log(parseInt(this.selectComponent('#self-rate').data.rate))
+    console.log(this.data.commentContent)
+    /* 
+    rating = {
+      'user_id': 1,
+      'movie_id': 2,
+      'rating': 4 // 
+      'comment': 'cool!'
+    }
+    */
+    let rating = {}
+    rating.user_id = this.data.userId
+    rating.movie_id = parseInt(this.data.movieId)
+    rating.rating = parseInt(this.selectComponent('#self-rate').data.rate)
+    rating.comment = this.data.commentContent
+    console.log(rating)
+    RestAPI.addARating(rating).then(res => {
+      console.log(res)
+    })
   }
 })

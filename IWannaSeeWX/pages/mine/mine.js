@@ -1,7 +1,10 @@
 // pages/mine/mine.js
 import * as RestAPI from '../../apis/RestAPI';
+import { $wuxDialog } from '../../components/dist/index'
+
 Page({
   data: {
+    userId: 11,
     showGetInfoButton: true,
     userInfo: {
       nickName: '',
@@ -16,7 +19,7 @@ Page({
     currentType: 0,
     userTags: [],
     favMovies: [],
-    showDeleteFavDialog: false
+    myComments: []
   },
 
   /**
@@ -40,6 +43,7 @@ Page({
               })
               that.getTags()
               that.getCollections()
+              that.getComments()
             }
           });
         }
@@ -97,46 +101,50 @@ Page({
 
   },
   onGotUserInfo(e) {
-    if (e.detail.userInfo) {
-      this.setData({
-        showGetInfoButton: false,
-        userInfo: e.detail.userInfo
-      })
-      wx.setStorage({
-        key: 'userInfo',
-        data: e.detail.userInfo
-      })
-    }
-    try {
-      const res = wx.getStorageInfoSync()
-      console.log(res.keys)
-      console.log(res.currentSize)
-      console.log(res.limitSize)
-    } catch (e) {
-      // Do something when catch error
-    }
+    // if (e.detail.userInfo) {
+    //   this.setData({
+    //     showGetInfoButton: false,
+    //     userInfo: e.detail.userInfo
+    //   })
+    //   wx.setStorage({
+    //     key: 'userInfo',
+    //     data: e.detail.userInfo
+    //   })
+    // }
+    // try {
+    //   const res = wx.getStorageInfoSync()
+    //   console.log(res.keys)
+    //   console.log(res.currentSize)
+    //   console.log(res.limitSize)
+    // } catch (e) {
+    //   // Do something when catch error
+    // }
+    RestAPI.mplogin()
    
   },
   changeType(e){
     console.log(e.currentTarget.dataset.type)
     if (e.currentTarget.dataset.type === '0') {
+      this.getComments()
       this.setData({
         currentType: 0
       })
     } else if (e.currentTarget.dataset.type === '1'){
+      this.getTags()
       this.setData({
         currentType: 1
       }) 
     } else {
+      this.getCollections() 
       this.setData({
         currentType: 2
-      }) 
+      })
     }
   },
   getTags(){
     let self = this
     wx.request({
-      url: 'http://120.79.178.50:8080/users/4/favor-categories',
+      url: 'http://120.79.178.50:8080/users/5/favor-categories',
       success(res){
         self.setData({
           userTags: res.data.data.list
@@ -148,7 +156,7 @@ Page({
   getCollections(){
     let self = this;
     wx.request({
-      url: 'http://120.79.178.50:8080/users/4/collections',
+      url: 'http://120.79.178.50:8080/users/5/collections',
       success(res){
         let list = res.data.data.list
         let tempFavMovies = []
@@ -174,26 +182,52 @@ Page({
       url: '/pages/detail/index?id=' + movieId,
     })
   },
-  deleteFavMovie(e){
-    console.log(e)
-    console.log("long click")
-    this.setData({
-      showDeleteFavDialog: true
+
+  testAPI(e){
+    RestAPI.testAPI()
+  },
+  deleteTag(e){
+    let self = this
+    console.log(e.currentTarget.dataset.id)
+    let tagId = e.currentTarget.dataset.id
+    $wuxDialog().confirm({
+      resetOnClose: true,
+      closable: true,
+      title: '删除标签',
+      content: '你确定要删除该标签吗？',
+      onConfirm(e) {
+        RestAPI.removeFavorCategory(self.data.userId, tagId).then(res => {
+          self.getTags()
+        })
+      },
+      onCancel(e) {
+        
+      }
     })
   },
-  _onShowModal: function (e) {
-    this.Modal.showModal();
-
-  },
-  _confirmEventFirst: function () {
-    console.log("点击确定了!");
-    this.Modal.hideModal();
-  },
-  _cancelEvent: function () {
-    console.log("点击取消!");
-  },
-  testAPI(e)
-  {
-    RestAPI.testAPI()
+  getComments(){
+    // getRatingsOfUser = (user_id, page, per_page)
+    // {pic_url, score, rating}
+    let that = this
+    RestAPI.getRatingsOfUser(this.data.userId, 1, 10).then(res => {
+      console.log(res.data.data.list)
+      that.setData({
+        myComments: res.data.data.list
+      })
+      let arr = res.data.data.list
+      for(let i=0; i<arr.length; i++){
+        wx.request({
+          url: 'http://120.79.178.50:8080/movies/' + arr[i].movie_id,
+          success(res){
+            let tempMovieUrl = res.data.data.pic_url;
+            var temp = "myComments[" + i + "].pic_url";
+            that.setData({
+              [temp]: tempMovieUrl
+            })
+            // console.log(that.data.myComments)
+          }
+        })
+      }
+    })
   }
 })

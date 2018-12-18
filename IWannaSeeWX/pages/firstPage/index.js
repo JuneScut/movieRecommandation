@@ -152,7 +152,7 @@ Page({
     let self = self;
     let tags = this.data.choosedTags;
     
-    RestAPI.addFavorCategories(4,tags).then(res => {
+    RestAPI.addFavorCategories(5,tags).then(res => {
         wx.setStorage({
           key: 'noFirstTime',
           data: true

@@ -20,9 +20,10 @@
 .title{
   margin-top: 10rpx;
   margin-bottom: 20rpx;
-  background: 	#8FBC8F;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+  /* background: #87CEFA; */
+   /* background: lightgray; */
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
   padding: 5px;
   width: fit-content
 }
