@@ -32,12 +32,12 @@
 
   <view class="assess">
     <view class="title">评价:</view>
-    <view wx:for="{{assess}}" wx:for-index="myIndex" wx:for-item="myItem" wx:key="index">
+    <view wx:for="{{assess}}" wx:for-index="myIndex" wx:for-item="myItem" wx:key="index" class="assess-item">
       <!-- <view class="username">{{myItem}}</view> -->
       <view class="content">{{myItem}}</view>
     </view>
   </view>
-  <view class="editor-wrapper">
+  <view class="editor-wrapper" bindtap='jump2Edit'>
     <image src="/images/editor.svg"></image>
     <text>写下评论</text>
   </view>

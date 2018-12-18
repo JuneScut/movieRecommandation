@@ -75,11 +75,12 @@
   line-height: 40rpx;
   padding: 20rpx 20rpx 40rpx 20rpx;
   color: #fafafa;
-  background-color: #222;
+  background-color: black;
 }
 
 .assess {
   background-color: #2f2f2f;
+  padding-bottom: 40px;
 }
 
 .assess .title {
@@ -99,10 +100,10 @@
 }
 
 .content {
-  padding: 10rpx 20rpx;
-  font-size: 28rpx;
+  padding: 15rpx 20rpx;
+  font-size: 14px;
+  line-height: 18px;
   color: white;
-  font-weight: bold;
   border-bottom: 1rpx solid gray
 }
 
@@ -122,16 +123,18 @@
 }
 .editor-wrapper{
   position: fixed;
-  bottom: 0;
-  right: 0;
+  bottom: 10px;
+  right: 10px;
   background:  rgb(73, 170, 52);
-  width: 200rpx;
+  width: 180rpx;
   border-radius: 10rpx;
-  color: white
+  color: white;
+  font-size: 14px;
 }
 .editor-wrapper image{
   width: 50rpx;
   height: 50rpx;
+  vertical-align: middle;
 }
 /* .banner{
   box-shadow: 0 0 10px #111;

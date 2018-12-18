@@ -34,16 +34,45 @@
       <view  data-type="1" class="tab-item {{currentType==1? 'on': ''}}" bindtap="changeType"><text>标签</text></view>
       <view data-type="2" class="tab-item {{currentType==2? 'on': ''}}" bindtap="changeType"><text>收藏</text></view>
     </view>
-    <view class="info">
+    <view class="info" wx:if="{{currentType==0 }}">
       <image src="/images/empty.jpg" class="info-image"></image>
     </view>
-    <view class="tag-wrapper">
-    <image src="/images/tag-background.png"></image>
-    <text>标签</text>
+
+    <view class="info" wx:if="{{currentType==1}}">
+      <view class="tag-wrapper" wx:for="{{userTags}}" wx:key="index">
+        <image src="/images/tag-background.png"></image>
+        <text>{{item.title}}</text>
+      </view>
     </view>
-    <view class="tag-wrapper">
-    <image src="/images/tag-background2.png"></image>
-    <text>标签</text>
+
+    <view class="info" wx:if="{{currentType==2}}">
+      <view wx:for="{{favMovies}}" wx:key="index" >
+        <view class="fav-movie-wrapper" data-id="{{item.id}}" bindtap='jump2Detail' bindlongpress='deleteFavMovie'>
+          <image src="{{item.pic_url}}"></image>
+          <view class="fav-movie-info">
+            <text class="fav-movie-title">{{item.title}}</text>
+            <text class="fav-movie-directors">{{item.stars}}</text>
+          </view>
+        </view>
+      </view>
     </view>
+
+    <!-- <dialog id="modal"
+            title="这里是标题"
+            cancelText="再想想"
+            confirmText="确认提交"
+            bind:cancelEvent="_cancelEvent"  
+            bind:confirmEvent="_confirmEventFirst" 
+            wx:if="{{showDeleteFavDialog}}"
+            >
+
+    <view class='modal-body'>
+        <view> 这是自定义内容1 </view>     
+        <view> 这是自定义内容2 </view>    
+        <view> 这是自定义内容3 </view>    
+    </view>
+
+</dialog> -->
+
   </block>
 </view>
