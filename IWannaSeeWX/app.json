@@ -1,13 +1,13 @@
 {
   "pages": [
-    "pages/mine/mine",
     "pages/firstPage/index",
     "pages/home/index",
     "pages/recommandation/recommandation",
     "pages/logs/logs",
-    
+    "pages/mine/mine",
     "pages/movieList/index",
-    "pages/detail/index"
+    "pages/detail/index",
+    "pages/comment/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

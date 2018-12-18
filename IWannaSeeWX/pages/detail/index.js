@@ -129,5 +129,13 @@ Page({
         })
       }
     })
+  },
+  jump2Edit(){
+    let id = this.data.id;
+    let title = this.data.detail.title;
+    let image = this.data.detail.pic_url;
+    wx.navigateTo({
+      url: '/pages/comment/index?id='+id+'&title='+title+'&image='+image,
+    })
   }
 });

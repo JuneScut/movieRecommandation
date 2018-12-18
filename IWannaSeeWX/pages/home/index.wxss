@@ -20,6 +20,11 @@
 .title{
   margin-top: 10rpx;
   margin-bottom: 20rpx;
+  background: 	#8FBC8F;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 5px;
+  width: fit-content
 }
 .new-movie-wrapper{
   display: flex;
