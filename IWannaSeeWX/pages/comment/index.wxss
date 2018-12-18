@@ -1,0 +1,76 @@
+/* pages/comment/index.wxss */
+.banner{
+  /* position: relative; */
+  height: 300px;
+}
+.banner image{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 300px;
+}
+.title-wrapper{
+  position: absolute;
+  width: 80%;
+  height: 200px;
+  z-index: 99;
+  top: 150px;
+  background: radial-gradient(50px at left top,transparent 50%,white 50%);
+}
+
+.raidal1 {
+  position: absolute;
+  width: 40%;
+  height: 100px;
+  z-index: 99;
+  top: 250px;
+  left: 40px;
+  background:radial-gradient(30px at left top,transparent 50%,	#FFFAFA 50%);
+}
+
+/* 右上 */
+.raidal2 {
+  position: absolute;
+  width: 40%;
+  height: 100px;
+  z-index: 99;
+  top: 250px;
+  left: 190px;
+  background:radial-gradient(30px at right top,transparent 50%,	#FFFAFA 50%);
+}
+.gap{
+  position: absolute;
+  left: 35px;
+  top: 300px;
+  z-index: 10;
+  background: rgba(192, 192, 192, 0.5);
+  width: 83%;
+  height: 56px;
+}
+.star-wrapper{
+  position: absolute;
+  top: 260px;
+  left: 40px;
+  z-index: 999;
+  width: 80%;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: rgb(247, 168, 42)
+}
+.comment-info {
+  padding: 70px 30px 25px 30px
+}
+.comment-info textarea{
+  font-size: 14px;
+  background: #F5F5F5;
+  padding: 8px;
+}
+.commit-button{
+  background:	rgb(204, 204, 204)
+  font-size: 16px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}

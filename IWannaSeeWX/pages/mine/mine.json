@@ -1,6 +1,6 @@
 {
   "navigationBarTitleText": "个人中心",
   "usingComponents": {
-    "slideTab": "../../components/tab/index"
+    "dialog": "/components/dialog/dialog"
   }
 }

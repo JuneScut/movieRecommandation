@@ -1,0 +1,21 @@
+<!--pages/comment/index.wxml-->
+<view class="comment-container">
+  <view class="banner">
+  <image src="{{pic_url}}"></image>
+  <!-- <view class="title-wrapper">
+  </view> -->
+  <view class='raidal1'></view>
+  <view class='raidal2'></view>
+  <view class="gap"></view>
+  <view class="my-comment">
+    <view class="star-wrapper">
+      <view style='margin-bottom: 20px;'>评分</view>
+      <multiple-rate rate="0"></multiple-rate>
+    </view>
+  </view>
+  </view>
+  <view class="comment-info">
+    <textarea placeholder='我来说两句' ></textarea>
+  </view>
+  <button class="commit-button">提交</button>
+</view>
