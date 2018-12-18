@@ -36,6 +36,6 @@ public interface UserInfoMapper
     WX_MP_User findWXMPUserByOpenId(String openid);
     
     @Insert("insert into `wx_mp_user` (`user_id`, `openid`) " +
-            "values (#{user_id}, #{openid} ")
+            "values (#{user_id}, #{openid}) ")
     Integer bindUserWithWXMPUser(WX_MP_User wx_mp_user);
 }

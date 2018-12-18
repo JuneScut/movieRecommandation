@@ -34,7 +34,7 @@ public class UserController
 //    }
     
     // 微信小程序登录
-    @PostMapping("/wx-mpLogin")
+    @PostMapping("/wx-mp-login")
     public Object wx_mpLogin(@RequestBody Map<String, Object> loginRequestMap)
     {
         return userService.wx_mpLogin(loginRequestMap);
@@ -44,12 +44,6 @@ public class UserController
 //    public Object wxUnionLogin(@RequestBody Map<String, Object> loginRequestMap)
 //    {
 //        return userService.wxUnionLogin(loginRequestMap);
-//    }
-    
-//    @GetMapping("/AES")
-//    public Object testAES()
-//    {
-//        return null;
 //    }
     
     /**

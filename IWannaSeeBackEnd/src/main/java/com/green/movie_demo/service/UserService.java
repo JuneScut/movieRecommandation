@@ -71,9 +71,6 @@ public class UserService
     // 简单轻便开发，后续有需要再完善
     public Result wx_mpLogin(Map<String, Object> mpLoginRequestMap)
     {
-        Map<String, Object> userInfoData = (Map<String, Object>) mpLoginRequestMap.get("userInfoData");
-        // TODO: 通过 userInfoData.signature 校验 userinfo 信息是否被篡改
-        
         // 访问微信接口服务，获取sessionKey
         StringBuilder urlBuilder = new StringBuilder(WX_session_url);
         urlBuilder.append("?appid="+appid)
@@ -81,6 +78,7 @@ public class UserService
                 .append("&js_code="+mpLoginRequestMap.get("code"))
                 .append("&grant_type=authorization_code");
         
+        logger.info("before request wx session");
         WXSession  wxSession = this.restTemplate.getForObject(urlBuilder.toString(), WXSession.class);
         switch (wxSession.getErrcode())
         {
@@ -107,12 +105,12 @@ public class UserService
         }
         
         String sessionKey = wxSession.getSession_key();
+        logger.info("Get wx session");
         
         WX_MP_User mp_user = userMapper.findWXMPUserByOpenId(wxSession.getOpenid());
         if(mp_user == null) // 用户第一次登录，需要新增数据
         {
             User user = new User();
-            user.setGender((int)userInfoData.get("gender"));
             userMapper.insertUser(user);
             mp_user = new WX_MP_User(user.getId(), wxSession.getOpenid());
             userMapper.bindUserWithWXMPUser(mp_user);

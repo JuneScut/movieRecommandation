@@ -51,50 +51,29 @@ wx openid 和 unionid
 // miniprogram login
 // 小程序登录，使用小程序openid标识用户唯一性
 export const mplogin = () => {
-  var requestParams = {
-    'code': '',
-    'userInfoData': null
-  };
-
-  // 前端逻辑
-  wx.getSetting({
+  wx.login({
     success(res) {
-      if (res.authSetting['scope.userInfo']) {
-        // 用户已授权过[用户信息]
-        wx.getUserInfo({
-          success(res) {
-            requestParams.userInfoData = res;
-
-            console.log(requestParams)
-
-            wx.login({
-              success(res) {
-                if (res.code) {
-                  requestParams.code = res.code;
-
-                  promiseRequest({
-                    url: baseURL + '/users/wx-login',
-                    method: POST,
-                    data: requestParams
-                  }).then((result) => {
-                    // TODO: 保存user_id等信息
-                    console.log(result)
-                    console.log(result.data)
-                    var data = result.data.data
-                    console.log(data)
-                  }).catch((err) => {
-                    console.log(err);
-                  });
-                } else {
-                  console.log('登录失败! ' + res.errMsg);
-                }
-              }
-            })
+      if (res.code) {
+        promiseRequest({
+          url: baseURL + '/users/wx-mp-login',
+          method: POST,
+          data: {
+            'code': res.code
           }
-        })
+        }).then((result) => {
+
+          // TODO: 保存user_id，openid应该不用保存
+          console.log(result)
+          console.log(result.data)
+          var data = result.data.data
+          console.log(data)
+
+        }).catch((err) => {
+          console.log(err);
+        });
+      } else {
+        console.log('登录失败! ' + res.errMsg);
       }
-
-
     }
   })
 };
@@ -382,7 +361,7 @@ export const updateARating = (rating) => {
 
 // ------------- debug -----------
 export const testAPI = () => {
-  login()
+  mplogin()
 
   // var rating = {
   //   'user_id': 1,
