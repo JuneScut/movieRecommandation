@@ -191,5 +191,9 @@ Page({
   },
   _cancelEvent: function () {
     console.log("点击取消!");
+  },
+  testAPI(e)
+  {
+    RestAPI.testAPI()
   }
 })
