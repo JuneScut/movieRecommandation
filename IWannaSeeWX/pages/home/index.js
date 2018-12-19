@@ -15,6 +15,7 @@ Page({
     autoplay: true,
     interval: 5000,
     duration: 1000,
+    recommandByKNN: [],
     newMovies: [{
       imgUrl: '/images/drawning.jpg',
       title: '云上日出',
@@ -43,6 +44,7 @@ Page({
         url: '/pages/login/login',
       })
     }
+    this.getRecommandByKNN()
     this.getAllCategories()
     this.getNewMovies()
   },
@@ -104,6 +106,26 @@ Page({
           newMovies: res.data.data.list
         })
       }
+    })
+  },
+  getRecommandByKNN() {
+    let that = this
+    RestAPI.recommend_user_knn(this.data.userId, 3).then((res) => {
+      let arr = res.data.data.recommended_movie_ids
+      arr.forEach((item, index) => {
+        if (index < 3) {
+          wx.request({
+            url: 'http://120.79.178.50:8080/movies/' + item,
+            success(res) {
+              // console.log(res.data.data)
+              let temp = "recommandByKNN[" + index + "]";
+              that.setData({
+                [temp]: res.data.data
+              })
+            }
+          })
+        }
+      })
     })
   }
 })

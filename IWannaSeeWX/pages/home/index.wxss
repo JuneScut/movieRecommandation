@@ -15,7 +15,7 @@
   height: 100%
 }
 .swiper-wrapper{
-  height: 400rpx;
+  height: 600rpx;
 }
 .title{
   margin-top: 10rpx;

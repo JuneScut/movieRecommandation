@@ -6,9 +6,9 @@
   </view>
   <swiper indicator-dots="{{indicatorDots}}"
     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class="swiper-wrapper">
-    <block wx:for="{{swipers}}" wx:key="index">
+    <block wx:for="{{recommandByKNN}}" wx:key="index">
       <swiper-item>
-        <image src="{{item.url}}" class="slide-image" data-id="{{item.id}}" bindtap="jump2Detail"/>
+        <image src="{{item.pic_url}}" class="slide-image" data-id="{{item.id}}" bindtap="jump2Detail"/>
       </swiper-item>
     </block>
   </swiper>

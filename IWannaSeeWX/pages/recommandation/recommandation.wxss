@@ -1,47 +1,27 @@
 /* pages/recommandation/recommandation.wxss */
-.recom-container{
-  background: white;
-  min-height: 1334rpx;
+.new-movie{
+  display: inline-block;
+  width: 200rpx;
+  margin-right: 8px;
 }
-.slide-image{
-  width: 100%;
-  height: 100%
+.new-movie-image{
+  width: 200rpx;
+  height: 300rpx;
 }
-.swiper-wrapper{
-  height: 400rpx;
+.new-movie-title{
+  font-size: 14px;
+  display: inline-block;
+  width: 200rpx;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
 }
-.recom-title{
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  color: black
-}
-.content{
- 
-}
-.recom-movie{
-  border-bottom: 1rpx solid gray;
-  position: relative
-}
-.recom-movie-image{
-  width: 100%;
-  height: 600rpx;
-  
-}
-.title-mask{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(	119,136,153, 0.5);
-  text-align: center;
-}
-.title{
-  color: white;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  font-size: 40rpx
+.new-movie-introduction{
+  font-size: 12px;
+  display: inline-block;
+  width: 200rpx;
+  color: grey;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
 }
