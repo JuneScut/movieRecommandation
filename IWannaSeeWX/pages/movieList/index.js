@@ -1,4 +1,6 @@
 // pages/movieList/index.js
+import * as RestAPI from "../../apis/RestAPI.js"
+
 Page({
 
   /**
@@ -7,20 +9,37 @@ Page({
   data: {
     id: 0,
     title: '',
-    movies: []
+    movies: [],
+    load_hot_movies: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (query) {
-    query.id = parseInt(query.id)
-    // console.log(query)
+    console.log("title: " + query.title)
+    query.load_hot_movies = parseInt(query.load_hot_movies)
     this.setData({
-      id: query.id,
+      load_hot_movies: query.load_hot_movies,
       title: query.title
     })
-    this.getAllMovies()
+    if(query.load_hot_movies === 0)
+    {
+      query.id = parseInt(query.id)
+      // console.log(query)
+      this.setData({
+        id: query.id,
+      })
+      this.getAllMovies()
+    }else
+    {
+      this.setData({
+        title: '近期热映',
+      })
+      this.getAllHotMovies()
+    }
+
+   
   },
 
   /**
@@ -85,6 +104,18 @@ Page({
           movies: res.data.data.list
         })
       }
+    })
+  },
+  getAllHotMovies(){
+    let self = this;
+    RestAPI.getHotMovies()
+    .then((res)=>{
+      console.log(res)
+      self.setData({
+        movies: res.data.data.list
+      })
+    }).catch((err)=>{
+      console.log(err)
     })
   },
   junp2detail(e){

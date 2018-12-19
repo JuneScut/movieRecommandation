@@ -18,9 +18,11 @@
     <view class="new-movie-wrapper">
     <block wx:for="{{newMovies}}" wx:key="index">
       <view class="new-movie">
+        <view class="new-movie" data-id="{{item.id}}" bindtap='jump2Detail'>
         <image src="{{item.pic_url}}" class="new-movie-image"></image>
         <view class="new-movie-title">{{item.title}}</view>
         <view class='new-movie-introduction'>{{item.short_intro}}</view>
+        </view>
       </view>
     </block>
     </view>

@@ -269,6 +269,20 @@ export const removeFavorCategory = (user_id, category_id) => {
   })
 };
 
+// 获取近期热映电影
+export const getHotMovies = (page, per_page) => {
+  page = page ? page : 1;
+  per_page = per_page ? per_page : 10;
+  return promiseRequest({
+    url: baseURL + '/movies/hot-movies',
+    method: GET,
+    data: {
+      'page': page,
+      'per_page': per_page
+    }
+  })
+};
+
 // 批量获取电影简要信息
 export const getMoviesInfo = (page, per_page) => {
   page = page ? page : 1;

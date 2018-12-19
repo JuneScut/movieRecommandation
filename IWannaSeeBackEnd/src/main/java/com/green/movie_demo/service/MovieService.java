@@ -23,6 +23,14 @@ public class MovieService
     @Autowired
     private MovieMapper movieMapper;
     
+    public Result getHotMovies(int page, int per_page)
+    {
+        int totalCount = movieMapper.findTotal_HotMovies();
+        List<Movie> movies = movieMapper.findHotMoviesOrderByScore(SqlUtil.offset(page, per_page), per_page);
+        Object data = ResultUtil.total(totalCount, movies);
+        return Result.OK().data(data).build();
+    }
+    
     public Result getMoviesInfo(int page, int per_page)
     {
         int totalCount = movieMapper.findTotal_Movies();

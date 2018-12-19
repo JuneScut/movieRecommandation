@@ -2,6 +2,7 @@ package com.green.movie_demo.mapper;
 
 import com.green.movie_demo.entity.Category;
 import com.green.movie_demo.entity.Movie;
+import com.green.movie_demo.util.SqlUtil;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
@@ -63,7 +64,13 @@ public interface MovieMapper
             "limit #{limit}")
     List<Movie> findRndKMoviesUnderCategory(@Param("category_id") int category_id, @Param("limit") int K);
     
+    @Select("select count(*) from `movie` where `douban_rank` is null;")
+    Integer findTotal_HotMovies();
     
+    @Select("select R.*, `category` " +
+            "from (select * from `movie` where `douban_rank` is null order by `douban_score` desc" + SqlUtil.LIMIT_OFFSET + ") as R join `movie_categories_v` as S " +
+            "on R.id = S.movie_id;")
+    List<Movie> findHotMoviesOrderByScore(int offset, @Param("limit") int per_page);
     
     // -----------------------
     
