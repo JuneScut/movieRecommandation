@@ -311,7 +311,7 @@ export const getMoivesUnderCategory = (category_id, page, per_page) => {
 rating = {
   'user_id': 1,
   'movie_id': 2,
-  'rating': 4 // 
+  'score': 4 // 
   'comment': 'cool!'
 }
 */

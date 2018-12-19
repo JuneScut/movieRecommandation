@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -29,6 +30,9 @@ public class UserMovieService
     
     @Autowired
     private UserInfoMapper userInfoMapper;
+    
+    @Autowired
+    private RestTemplate restTemplate;
     
     public Result addCollection(int user_id, int movie_id)
     {
@@ -191,5 +195,20 @@ public class UserMovieService
             logger.error(ex.toString());
         }
         return Result.BadRequest().build();
+    }
+    
+    public Result recommend_category_based(int user_id, int k_movies)
+    {
+        return Result.NotFound().msg("基于标签的推荐模型尚未部署").build();
+    }
+    
+    public Result recommend_user_knn(int user_id, int k_movies)
+    {
+        final int k_neighbors = 5;
+        // 后续再完善配置
+        String user_knn_api = "http://localhost:8000/users/" + user_id + "/recommender/user-knn"
+                + "?k_movies=" + k_movies + "&k_neighbors=" + k_neighbors;
+        Result result = restTemplate.getForObject(user_knn_api, Result.class);
+        return result;
     }
 }

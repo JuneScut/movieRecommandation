@@ -90,7 +90,7 @@ Page({
       commentContent: e.detail.value
     })
   },
-  commitComment(){
+  commitComment(e){
     console.log(parseInt(this.selectComponent('#self-rate').data.rate))
     console.log(this.data.commentContent)
     /* 
@@ -104,7 +104,7 @@ Page({
     let rating = {}
     rating.user_id = this.data.userId
     rating.movie_id = parseInt(this.data.movieId)
-    rating.rating = parseInt(this.selectComponent('#self-rate').data.rate)
+    rating.score = parseInt(this.selectComponent('#self-rate').data.rate)
     rating.comment = this.data.commentContent
     console.log(rating)
     RestAPI.addARating(rating).then(res => {
