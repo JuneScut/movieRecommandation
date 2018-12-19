@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -199,7 +200,11 @@ public class UserMovieService
     
     public Result recommend_category_based(int user_id, int k_movies)
     {
-        return Result.NotFound().msg("基于标签的推荐模型尚未部署").build();
+        //        return Result.NotFound().msg("基于标签的推荐模型尚未部署").build();
+        String category_based_api = "http://localhost:7999/users/" + user_id
+                + "/recommender/category-based?k_movies=" + k_movies;
+        Result result = restTemplate.getForObject(category_based_api, Result.class);
+        return result;
     }
     
     public Result recommend_user_knn(int user_id, int k_movies)
