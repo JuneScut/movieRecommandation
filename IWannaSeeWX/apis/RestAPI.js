@@ -50,6 +50,43 @@ wx openid 和 unionid
 
 // miniprogram login
 // 小程序登录，使用小程序openid标识用户唯一性
+export const loginByJune = (callback) => {
+  // wx.showLoading({
+  //   title: '登录中...',
+  // })
+  wx.login({
+    success(res){
+      if(res.code){
+        getUserInfo(res.code, callback)
+      } else {
+        console.log('登录失败')
+      }
+    }
+  })
+}
+function getUserInfo(code, callback){
+  wx.getUserInfo({
+    success(res){
+      wx.setStorageSync('WxUserInfo', res.userInfo)
+      promiseRequest({
+        url: baseURL + '/users/wx-mp-login',
+        method: POST,
+        data: {
+          'code': code
+        }
+      }).then((result) => {
+        wx.setStorageSync("userId", result.data.data.user.user_id)
+        wx.setStorageSync("isNewUser", result.data.data.is_new_user)
+        callback && callback()
+      })
+    },
+    fail(res) {
+      console.log(res)
+    }
+  })
+}
+
+
 export const mplogin = () => {
   wx.login({
     success(res) {
@@ -62,14 +99,18 @@ export const mplogin = () => {
           }
         }).then((result) => {
           // TODO: 保存user_id，openid应该不用保存
-          console.log(result)
-          console.log(result.data)
+          // console.log(result.data.data.user.user_id)
           wx.setStorage({
             key: 'userId',
-            data: result.data.user_id
+            data: result.data.data.user.user_id
           })
-          var data = result.data.data
-          console.log(data)
+          wx.setStorage({
+            key: 'isNewUser',
+            data: result.data.data.is_new_user
+          })
+          // console.log(wx.getStorageSync('userId'))
+          // var data = result.data.data
+          // console.log(data)
 
         }).catch((err) => {
           console.log(err);

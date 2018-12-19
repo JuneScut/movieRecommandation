@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "multiple-rate": "/components/multiple-rate/multiple-rate"
+    "multiple-rate": "/components/multiple-rate/multiple-rate",
+    "wux-toast": "/components/dist/toast/index"
   }
 }

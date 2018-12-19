@@ -4,6 +4,7 @@
   <!-- <button bindtap='testAPI'>Test API</button> -->
   <!-- <button bindtap="showDialog">test dialog</button> -->
   <wux-dialog id="wux-dialog" />
+  <wux-select id="wux-select" />
 
   <block wx:if="{{showGetInfoButton}}">
     <view class="no-info">
@@ -11,6 +12,7 @@
       <button bindtap="onGotUserInfo" type='primary'>获取用户信息</button>
     </view>
   </block>
+
   <block wx:else>
     <view>
       <image src="{{userInfo.avatarUrl}}" class="avatar"></image>
@@ -37,7 +39,7 @@
     </view>
     <view class="info" wx:if="{{currentType==0 }}">
       <view wx:for="{{myComments}}" wx:key="index" >
-        <view class="fav-movie-wrapper" data-id="{{item.movie_id}}" bindtap='jump2Detail' >
+        <view class="fav-movie-wrapper" data-id="{{item.movie_id}}" bindtap='jump2Detail' bindlongpress='deleteComment'>
           <image src="{{item.pic_url}}"></image>
           <view class="fav-movie-info">
             <multiple-rate rate="{{item.score}}"  class="fav-movie-title" disabled="true"></multiple-rate>
@@ -55,7 +57,7 @@
         </view>
       </view>
       <view class="tag-wrapper">
-        <image src="/images/addTag.png" style="width: 120rpx; height: 120rpx"></image>
+        <image src="/images/addTag.png" style="width: 120rpx; height: 120rpx" bindtap='onClick3'></image>
       </view>
     </view>
 

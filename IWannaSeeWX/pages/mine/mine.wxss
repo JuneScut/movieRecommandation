@@ -52,7 +52,7 @@
   color: #49AA34;
 }
 .info{
-  padding-left: 25px;
+  padding-left: 15px;
   
 }
 .tag-wrapper {

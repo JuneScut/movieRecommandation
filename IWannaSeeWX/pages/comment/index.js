@@ -1,5 +1,7 @@
 // pages/comment/index.js
 import * as RestAPI from '../../apis/RestAPI';
+import {getUserId} from '../../utils/util.js'
+import { $wuxToast } from '../../components/dist/index'
 Page({
 
   /**
@@ -27,6 +29,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (query) {
+    this.setData({
+      userId: getUserId()
+    })
     if (query) {
       this.setData({
         movieId: query.id,
@@ -101,6 +106,7 @@ Page({
       'comment': 'cool!'
     }
     */
+    let self = this
     let rating = {}
     rating.user_id = this.data.userId
     rating.movie_id = parseInt(this.data.movieId)
@@ -109,6 +115,19 @@ Page({
     console.log(rating)
     RestAPI.addARating(rating).then(res => {
       console.log(res)
+      self.showToast()
+      setTimeout(wx.navigateTo({
+        url: '/pages/detail/index?id='+movieId,
+      }), 3000)
     })
-  }
+  },
+  showToast() {
+    $wuxToast().show({
+      type: '成功',
+      duration: 1500,
+      color: '#fff',
+      text: '你的评论已经添加成功，赶紧去看看吧',
+      success: () => console.log('已完成')
+    })
+  },
 })

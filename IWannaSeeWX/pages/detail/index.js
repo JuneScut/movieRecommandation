@@ -1,4 +1,5 @@
 import * as RestAPI from '../../apis/RestAPI';
+import {getUserId} from '../../utils/util.js'
 Page({
   data: {
     id: 4,
@@ -47,6 +48,9 @@ Page({
   },
   onLoad: function (query) {
     this.setData({
+      userId: getUserId()
+    })
+    this.setData({
       id: query.id
     })
     var self = this;
@@ -87,8 +91,8 @@ Page({
   collectMovie(e){
     let id = parseInt(this.data.id)
     let flag = !(this.data.collectionFlag)
-    let text = this.data.collectionFlag === true ? '取消收藏' : '收藏'
-    let url = this.data.collectionFlag === true ? '/images/heart-selected.svg'  : '/images/heart-noselected.svg'
+    let text = this.data.collectionFlag === true ? '收藏' : '取消收藏'
+    let url = this.data.collectionFlag === true ? '/images/heart-noselected.svg'  : '/images/heart-selected.svg'
     let self = this
     console.log(id)
     if (!this.data.collectionFlag) {
@@ -98,6 +102,7 @@ Page({
           collectionText: text,
           collectionImage: url
         })
+        console.log(this.data.collectionFlag, this.data.collectionImage, this.data.collectionText)
       }).catch(res => {
         console.log(res)
       })
@@ -108,6 +113,7 @@ Page({
           collectionText: text,
           collectionImage: url
         })
+        console.log(this.data.collectionFlag, this.data.collectionImage, this.data.collectionText)
       }).catch(res => {
         console.log(res)
       })
