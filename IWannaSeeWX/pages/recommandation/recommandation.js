@@ -1,43 +1,33 @@
 // pages/recommandation/recommandation.js
+import * as RestAPI from '../../apis/RestAPI.js'
+import {getUserId} from '../../utils/util.js'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    imgUrls: [
-      '/images/haiwang.jpg',
-      '/images/Totoro.jpg',
-      '/images/drawning.jpg'
-    ],
-    indicatorDots: true,
-    autoplay: true,
-    interval: 5000,
-    duration: 1000,
-    recomMovies: [
-      {id: 1, title: '这个杀手不太冷', url: '/images/shashou.jpg'},
-      {id: 2, titel: '龙猫', url: '/images/longmao.jpg'},
-      {id: 3, title:'日落之上', url: '/images/drawning.jpg'}
-    ]
+    userId: 11,
+    recommandByTags: [],
+    recommandByKNN: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let self = this;
-    wx.request({
-    url:'https://www.easy-mock.com/mock/5c14fc797aeb86217625d848/projectManage/getNewHotMovie#!method=get',
-      header: {
-        'content-type': 'application/json'
-      },
-      success(res) {
-        // console.log(res.data)
-        self.setData({
-          recomMovies: res.data.data.list
-        })
-      }
-    })
+    if(getUserId()){
+      this.setData({
+        userId: getUserId()
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+    }
+    console.log(this.data.userId)
+    this.getRecommandByTags()
+    this.getRecommandByKNN()
   },
 
   /**
@@ -54,38 +44,52 @@ Page({
 
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  getRecommandByTags(){
+    // user_id, k_movies
+    let that = this
+    RestAPI.recommend_category_based(this.data.userId, 3).then((res) => {
+      let arr = res.data.data.recommended_movie_ids
+      arr.forEach((item, index) => {
+        if (index < 3) {
+          wx.request({
+            url: 'http://120.79.178.50:8080/movies/' + item,
+            success(res) {
+              // console.log(res.data.data)
+              let temp = "recommandByTags[" + index + "]";
+              that.setData({
+                [temp]: res.data.data
+              })
+            }
+          })
+        }
+      })
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
+  getRecommandByKNN() {
+    let that = this
+    RestAPI.recommend_user_knn(this.data.userId, 3).then((res) => {
+      let arr = res.data.data.recommended_movie_ids
+      arr.forEach((item, index) => {
+        if(index < 3){
+          wx.request({
+            url: 'http://120.79.178.50:8080/movies/' + item,
+            success(res) {
+              // console.log(res.data.data)
+              let temp = "recommandByKNN[" + index + "]";
+              that.setData({
+                [temp]: res.data.data
+              })
+            }
+          })
+        }
+      })
+    })
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  jump2Detail(e){
+    console.log(e.currentTarget.dataset.id)
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/detail/index?id=' + id,
+    })
   }
 })

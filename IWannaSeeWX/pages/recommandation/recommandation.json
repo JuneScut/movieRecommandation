@@ -1,1 +1,7 @@
-{}
+{
+  "navigationBarTitleText": "推荐电影",
+  "usingComponents": {
+    "wux-card": "/components/dist/card/index",
+    "wux-wing-blank": "/components/dist/wing-blank/index"
+  }
+}

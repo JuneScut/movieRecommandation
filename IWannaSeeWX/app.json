@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/recommandation/recommandation",
     "pages/home/index",
     "pages/firstPage/index",
-    "pages/recommandation/recommandation",
+    
     "pages/logs/logs",
     "pages/mine/mine",
     "pages/movieList/index",

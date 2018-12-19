@@ -1,5 +1,5 @@
 <!--pages/recommandation/recommandation.wxml-->
-<view class="recom-container">
+<!-- <view class="recom-container">
   <swiper
     indicator-dots="{{indicatorDots}}"
     autoplay="{{autoplay}}"
@@ -24,4 +24,27 @@
       </view>
   </block>
   </view>
-</view>
+</view> -->
+<wux-wing-blank size="default">
+  <wux-card title="个性化标签推荐" bordered="true" thumb-style="border-radius: 50%;">
+      <view slot="body">
+        <block wx:for="{{recommandByTags}}" wx:key="index" >
+          <view class="new-movie" data-id="{{item.id}}" bindtap="jump2Detail">
+            <image src="{{item.pic_url}}" class="new-movie-image"></image>
+            <view class="new-movie-title">{{item.title}}</view>
+          </view>
+        </block>
+      </view>
+  </wux-card>
+  <view style="height: 60px"></view>
+    <wux-card title="个性化评分推荐" bordered="true">
+      <view slot="body">
+        <block wx:for="{{recommandByKNN}}" wx:key="index" >
+          <view class="new-movie" data-id="{{item.id}}" bindtap="jump2Detail">
+            <image src="{{item.pic_url}}" class="new-movie-image"></image>
+            <view class="new-movie-title">{{item.title}}</view>
+          </view>
+        </block>
+      </view>
+  </wux-card>
+</wux-wing-blank>
