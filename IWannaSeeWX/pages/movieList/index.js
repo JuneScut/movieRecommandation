@@ -108,7 +108,7 @@ Page({
   },
   getAllHotMovies(){
     let self = this;
-    RestAPI.getHotMovies()
+    RestAPI.getHotMovies(1, 30)
     .then((res)=>{
       console.log(res)
       self.setData({
