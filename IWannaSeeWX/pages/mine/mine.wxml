@@ -1,7 +1,7 @@
 <!--pages/mine/mine.wxml-->
 <view class="container">
   
-  <button bindtap='testAPI'>Test API</button>
+  <!-- <button bindtap='testAPI'>Test API</button> -->
   <!-- <button bindtap="showDialog">test dialog</button> -->
   <wux-dialog id="wux-dialog" />
 

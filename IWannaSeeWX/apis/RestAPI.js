@@ -364,6 +364,24 @@ export const updateARating = (rating) => {
   })
 }
 
+// 基于标签的推荐
+// k_movies : 返回的推荐电影数量
+export const recommend_category_based = (user_id, k_movies) => {
+  return promiseRequest({
+    url: baseURL + '/users/' + user_id + '/recommender/category-based',
+    method: GET
+  })
+}
+
+// 基于use-knn协同过滤的推荐
+// k_movies : 返回的推荐电影数量
+export const recommend_user_knn = (user_id, k_movies) => {
+  return promiseRequest({
+    url: baseURL + '/users/' + user_id + '/recommender/user-knn',
+    method: GET
+  })
+}
+
 // 
 // export const getAllCategories = () => {
 //   return promiseRequest({
@@ -374,7 +392,11 @@ export const updateARating = (rating) => {
 
 // ------------- debug -----------
 export const testAPI = () => {
-  mplogin()
+  
+  recommend_category_based(11, 5)
+  // recommend_user_knn(11, 5)
+
+  // mplogin()
   // deleteWXUser(55)
 
   // var rating = {
@@ -389,13 +411,13 @@ export const testAPI = () => {
   //getRatingsOfUser(1)
   //addARating(rating)
   // removeARating(1, 100)
-    // .then((result) => {
-    //   console.log(result);
-    //   console.log(result.data);
-    //   var data = result.data.data;
-    //   console.log(data);
-    // }).catch((err) => {
-    //   console.log(err)
-    // })
+    .then((result) => {
+      console.log(result);
+      console.log(result.data);
+      var data = result.data.data;
+      console.log(data);
+    }).catch((err) => {
+      console.log(err)
+    })
 };
 
