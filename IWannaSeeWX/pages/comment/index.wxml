@@ -1,4 +1,5 @@
 <!--pages/comment/index.wxml-->
+<wux-toast id="wux-toast" />
 <view class="comment-container">
   <view class="banner">
   <image src="{{pic_url}}"></image>
@@ -15,7 +16,7 @@
   </view>
   </view>
   <view class="comment-info">
-    <textarea placeholder='我来说两句' value='{{commentContent}}' bindinput="getContent">{{commentContent}}</textarea>
+    <textarea placeholder='我来说两句' value='{{commentContent}}' bindinput="getContent"></textarea>
   </view>
   <button class="commit-button" bindtap='commitComment'>提交</button>
 </view>

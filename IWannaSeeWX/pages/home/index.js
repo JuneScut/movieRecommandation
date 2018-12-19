@@ -1,14 +1,11 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
+import * as RestAPI from '../../apis/RestAPI.js'
+import {getUserId} from '../../utils/util.js'
 Page({
   data: {
     categoryMovies: [],
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
     swipers: [
       {id: 2, url: '/images/duye.jpg'},
       {id: 3, url: '/images/longmao.jpg'},
@@ -30,25 +27,24 @@ Page({
         imgUrl: '/images/einstein.jpg',
         title: '狗十三',
         introduction: '13岁的少女李玩...'
-      }]
-  },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
+      }],
+    showLogin: false
   },
   onLoad: function () {
+    let userId = getUserId()
+    console.log(userId)
+    if(userId){
+      this.setData({
+        userId: userId
+      })
+    }
+    if(!userId){
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+    }
     this.getAllCategories()
     this.getNewMovies()
-  },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
   },
   navigateToMore(event){
     let id = event.currentTarget.dataset.categoryId

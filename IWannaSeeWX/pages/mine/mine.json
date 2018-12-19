@@ -2,6 +2,10 @@
   "navigationBarTitleText": "个人中心",
   "usingComponents": {
     "wux-dialog": "/components/dist/dialog/index",
-    "multiple-rate": "/components/multiple-rate/multiple-rate"
+    "multiple-rate": "/components/multiple-rate/multiple-rate",
+    "wux-cell-group": "/components/dist/cell-group/index",
+    "wux-cell": "/components/dist/cell/index",
+    "wux-button": "/components/dist/button/index",
+    "wux-select": "/components/dist/select/index"
   } 
 }
