@@ -125,6 +125,9 @@ Page({
     let flag = true
     let text = '取消收藏' 
     let url = '/images/heart-selected.svg'
+
+    console.log("用户检查是否收藏电影")
+    console.log("user_id: " + this.data.userId)
     RestAPI.checkACollectfedMovie(this.data.userId, id).then(res => {
       console.log(res.data)
       if (res.data.status === 200 ) {

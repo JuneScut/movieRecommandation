@@ -2,13 +2,9 @@ package com.green.movie_demo.service;
 
 import com.green.movie_demo.entity.Result;
 import com.green.movie_demo.entity.User;
-import com.green.movie_demo.entity.WXUserInfo;
 import com.green.movie_demo.entity.WX_MP_User;
-import com.green.movie_demo.feign.WXCode2SessionFeignClient;
 import com.green.movie_demo.mapper.UserInfoMapper;
 import com.green.movie_demo.session.WXSession;
-import com.green.movie_demo.util.AESUtil;
-import com.green.movie_demo.util.EncryptUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,19 +33,19 @@ public class UserService
     private RestTemplate restTemplate;
     
     @Autowired
-    private UserInfoMapper userMapper;
+    private UserInfoMapper userInfoMapper;
     
     
 //    public Result signUp(User user)
 //    {
 //        if (user == null) return Result.BadRequest().build();
-//        User tempUser = userMapper.getUserByName(user.getUsername());
+//        User tempUser = userInfoMapper.getUserByName(user.getUsername());
 //
 //        if (tempUser == null)
 //        {
 //            user.setPassword(EncryptUtil.encrypt(user.getPassword()));
-//            userMapper.insertUser(user);
-//            user = userMapper.getUserByName(user.getUsername());
+//            userInfoMapper.insertUser(user);
+//            user = userInfoMapper.getUserByName(user.getUsername());
 //            user.setPassword(null);
 //            return Result.OK().data(user).build();
 //        }
@@ -59,7 +55,7 @@ public class UserService
 //    public Result login(User user)
 //    {
 //        if (user == null || user.getUsername() == null) return Result.BadRequest().build();
-//        User tempUser = userMapper.getUserByName(user.getUsername());
+//        User tempUser = userInfoMapper.getUserByName(user.getUsername());
 //        if (tempUser == null || !tempUser.getPassword().equals(EncryptUtil.encrypt(user.getPassword())))
 //            return Result.BadRequest().msg("用户不存在或密码错误").build();
 //
@@ -107,19 +103,31 @@ public class UserService
         String sessionKey = wxSession.getSession_key();
         logger.info("Get wx session");
         
-        WX_MP_User mp_user = userMapper.findWXMPUserByOpenId(wxSession.getOpenid());
+        WX_MP_User mp_user = userInfoMapper.findWXMPUserByOpenId(wxSession.getOpenid());
+        boolean is_new_user = false;
         if(mp_user == null) // 用户第一次登录，需要新增数据
         {
+            is_new_user = true;
             User user = new User();
-            userMapper.insertUser(user);
+            userInfoMapper.insertUser(user);
             mp_user = new WX_MP_User(user.getId(), wxSession.getOpenid());
-            userMapper.bindUserWithWXMPUser(mp_user);
+            userInfoMapper.bindUserWithWXMPUser(mp_user);
         }
         
         // TODO: 将sessionKey等数据存Redis数据库，方便后续利用和权限管理
         
-        
-        return Result.OK().data(mp_user).build();
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("user", mp_user);
+        resultMap.put("is_new_user", is_new_user);
+        return Result.OK().data(resultMap).build();
+    }
+    
+    public Result deleteWXUser(int user_id)
+    {
+        User user = userInfoMapper.findUserById(user_id);
+        if(user == null) return Result.BadRequest().msg("用户不存在").build();
+        Integer affectedRow = userInfoMapper.deleteUserByUserId(user_id);
+        return Result.OK().build();
     }
     
     // 微信全平台接入登录，利用unionid
@@ -182,7 +190,7 @@ public class UserService
 //    public List<User> findUsers(String username)
 //    {
 //        if (username == null) return null;
-//        List<User> users = userMapper.getUserByName(username);
+//        List<User> users = userInfoMapper.getUserByName(username);
 //        return users;
 //    }
 

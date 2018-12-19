@@ -95,7 +95,7 @@ Page({
       commentContent: e.detail.value
     })
   },
-  commitComment(){
+  commitComment(e){
     console.log(parseInt(this.selectComponent('#self-rate').data.rate))
     console.log(this.data.commentContent)
     /* 

@@ -1,3 +1,5 @@
+import * as RestAPI from "../apis/RestAPI.js"
+
 var pageObject = {
   testAPI: function (e) {
     // promise的调用方式

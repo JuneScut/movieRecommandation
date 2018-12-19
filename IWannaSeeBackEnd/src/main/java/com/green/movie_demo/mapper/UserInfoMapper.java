@@ -12,8 +12,8 @@ import java.util.List;
 @Component(value = "userMapper")
 public interface UserInfoMapper
 {
-    @Select("select * from user where username = #{username}")
-   User getUserByName(@Param("username") String username);
+//    @Select("select * from user where username = #{username}")
+//   User getUserByName(@Param("username") String username);
     //List<User> getUserByName(@Param("username") String username);
     
 //    @Select("select min(`id`) from user where username = #{username}")
@@ -29,8 +29,14 @@ public interface UserInfoMapper
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     int insertUser(User user);
     
-    @Select("select * from `user` where `use_id` = #{user_id} ")
+    @Delete("delete from `user` where `id` = #{user_id} ")
+    Integer deleteUserByUserId(int user_id);
+    
+    @Select("select * from `user` where `id` = #{user_id} ")
     User findUserById(int user_id);
+    
+    @Select("select * from `wx_mp_user` where `user_id` = #{user_id} ")
+    WX_MP_User findWXMPUserByUserId(int user_id);
     
     @Select("select * from `wx_mp_user` where `openid` = #{openid} ")
     WX_MP_User findWXMPUserByOpenId(String openid);
@@ -38,4 +44,7 @@ public interface UserInfoMapper
     @Insert("insert into `wx_mp_user` (`user_id`, `openid`) " +
             "values (#{user_id}, #{openid}) ")
     Integer bindUserWithWXMPUser(WX_MP_User wx_mp_user);
+    
+    @Delete("delete from `wx_mp_user` where `user_id` = #{user_id} ")
+    Integer unBindWXMPUser(int user_id);
 }

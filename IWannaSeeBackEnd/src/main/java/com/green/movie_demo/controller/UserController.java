@@ -40,6 +40,13 @@ public class UserController
         return userService.wx_mpLogin(loginRequestMap);
     }
     
+    //
+    @DeleteMapping("/{user_id}")
+    public Object deleteWXUser(@PathVariable int user_id)
+    {
+        return userService.deleteWXUser(user_id);
+    }
+    
 //    @PostMapping("/wx-unionlogin")
 //    public Object wxUnionLogin(@RequestBody Map<String, Object> loginRequestMap)
 //    {
@@ -140,4 +147,19 @@ public class UserController
     {
         return userMovieService.getRatingsOfUser(user_id, page, per_page);
     }
+    
+    @GetMapping("{user_id}/recommender/category-based")
+    public Object getRecommenedMovieIds_category_based(@PathVariable int user_id,
+                                                     @RequestParam(value = "k_movies", defaultValue = "5") int k_movies)
+    {
+        return userMovieService.recommend_category_based(user_id, k_movies);
+    }
+    
+    @GetMapping("{user_id}/recommender/user-knn")
+    public Object getRecommendedMovieIds_user_knn(@PathVariable int user_id,
+                                                  @RequestParam(value = "k_movies", defaultValue = "5") int k_movies)
+    {
+        return userMovieService.recommend_user_knn(user_id, k_movies);
+    }
+    
 }
