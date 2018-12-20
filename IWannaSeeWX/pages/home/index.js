@@ -52,7 +52,7 @@ Page({
     let id = event.currentTarget.dataset.categoryId
     let title = event.currentTarget.dataset.categoryTitle
     wx.navigateTo({
-      url: '/pages/movieList/index?id=' + id + '&title=' + title + '&load_hot_movies=' + load_hot_moviesg
+      url: '/pages/movieList/index?id=' + id + '&title=' + title + '&load_hot_movies=' + 0
     })
   },
   jump2Detail(e){
@@ -114,7 +114,7 @@ Page({
       console.log(result.data)
       console.log(result.data.data)
 
-      if (result.data.status === 200)
+      if (result.data.status == 200)
       {
         self.setData({
           newMovies: result.data.data.list
