@@ -14,7 +14,7 @@
   </swiper>
   <view style='position: relative'>
     <view class="title">这周影院有啥看</view>
-    <text class="more" bindtap='navigateToMore'>更多</text>
+    <text class="more" bindtap='navigateToMoreHotMovies'>更多</text>
     <view class="new-movie-wrapper">
     <block wx:for="{{newMovies}}" wx:key="index">
       <view class="new-movie">

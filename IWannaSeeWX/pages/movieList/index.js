@@ -23,7 +23,7 @@ Page({
       load_hot_movies: query.load_hot_movies,
       title: query.title
     })
-    if(query.load_hot_movies === 0)
+    if(query.load_hot_movies == 0)
     {
       query.id = parseInt(query.id)
       // console.log(query)

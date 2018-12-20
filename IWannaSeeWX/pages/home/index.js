@@ -114,7 +114,7 @@ Page({
       console.log(result.data)
       console.log(result.data.data)
 
-      if (result.data.status === 200)
+      if (result.data.status == 200)
       {
         self.setData({
           newMovies: result.data.data.list
