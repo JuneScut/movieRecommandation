@@ -117,7 +117,8 @@ Page({
       console.log(res)
       self.showToast()
       setTimeout(wx.navigateTo({
-        url: '/pages/detail/index?id='+movieId,
+        // url: '/pages/detail/index?id='+movieId,
+        url: '/pages/detail/index?id='+self.data.movieId,
       }), 3000)
     })
   },
