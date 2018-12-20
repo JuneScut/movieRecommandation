@@ -17,10 +17,11 @@
         <view>制片国家：{{detail.country}}</view>
         <view>片长：{{detail.running_time}}</view>
         <view>上映时间：{{detail.release_date}}</view>
-        <view class="score">{{detail.douban_score}}
-          <text>分</text>
-          <view>{{detail.douban_votes}}人评分</view>
-        </view>
+        
+        <view class="score" wx:if="{{detail.douban_score>0}}">{{detail.douban_score}}<text>分</text></view>
+        <view class="score" wx:else><text>暂无评分</text></view>
+          <view wx:if="{{detail.douban_votes>0}}">{{detail.douban_votes}}人评分</view>
+        
       </view>
     </view>
     <!-- <image class="background" mode="aspectFill" src="{{detail.pic_url}}"></image> -->

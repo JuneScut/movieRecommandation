@@ -19,6 +19,13 @@ public class MovieController
     @Autowired
     private UserMovieService userMovieService;
     
+    @GetMapping("/hot-movies")
+    public Object getHotMovies(@RequestParam(value = "page", defaultValue = "1") int page,
+                               @RequestParam(value = "per_page", defaultValue = "20") int per_page)
+    {
+        return movieService.getHotMovies(page, per_page);
+    }
+    
     // 获取电影简略信息
     @GetMapping(value = "/info")
     public Object getMoviesInfo(@RequestParam(value = "page", defaultValue = "1") int page,

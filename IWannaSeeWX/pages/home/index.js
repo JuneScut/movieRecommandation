@@ -96,16 +96,37 @@ Page({
   // 这周影院有啥看
   getNewMovies(){
     let self = this;
-    wx.request({
-      url: 'https://www.easy-mock.com/mock/5c14fc797aeb86217625d848/projectManage/getNewHotMovie#!method=get',
-      header: {
-        'content-type': 'application/json'
-      },
-      success(res) {
+    // wx.request({
+    //   url: 'https://www.easy-mock.com/mock/5c14fc797aeb86217625d848/projectManage/getNewHotMovie#!method=get',
+    //   header: {
+    //     'content-type': 'application/json'
+    //   },
+    //   success(res) {
+    //     self.setData({
+    //       newMovies: res.data.data.list
+    //     })
+    //   }
+    // })
+
+    RestAPI.getHotMovies(1, 3)
+    .then((result)=>{
+      console.log(result)
+      console.log(result.data)
+      console.log(result.data.data)
+
+      if (result.data.status === 200)
+      {
         self.setData({
-          newMovies: res.data.data.list
+          newMovies: result.data.data.list
         })
       }
+    }).catch((err)=>{
+      console.log(err)
+    })
+  },
+  navigateToMoreHotMovies(event) {
+    wx.navigateTo({
+      url: '/pages/movieList/index?load_hot_movies=' + 1 + '&title=Hot Movies'
     })
   },
   getRecommandByKNN() {
