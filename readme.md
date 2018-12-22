@@ -8,3 +8,7 @@ A simple movie recommender system
 |IWannaSeeWX|前端|
 |IWannaSeeBackEnd| 后端 |
 |recommender|推荐模块|
+
+<img src="documents/architecture.png">
+
+代码较乱，目前没有时间整理，大概就这样吧。
